@@ -1,0 +1,35 @@
+.title-image {
+  aspect-ratio: 4.07;
+  object-fit: contain;
+  object-position: center;
+  align-content: center;
+  width: 276px;
+  max-width: 276px;
+}
+
+.logo-image {
+  aspect-ratio: 0.91;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  align-self: stretch;
+}
+
+.start-button {
+  font-family: "Inria Serif", serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #6C4B25;
+  background-color: transparent;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+
+}
+
+.start-button:hover {
+  color: #e979a9;
+  scale: 1.2;
+}

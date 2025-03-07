@@ -1,0 +1,170 @@
+.background-oval {
+    position: absolute;
+    width: 300px; /* Tăng kích thước background */
+    height: 220px;
+    left: 51%;
+    top: 90px;
+    transform: translateX(-50%) rotate(22.972deg);
+    border-radius: 50%;
+    background-color: #f6e2d7;
+    z-index: 1;
+}
+
+.sign-in-image {
+    position: absolute;
+    left: 42%;
+    top: 66px; /* Điều chỉnh theo nhu cầu */
+    transform: translateX(-50%);
+    width: 300px; /* Điều chỉnh kích thước */
+    height: auto;
+    z-index: 2; /* Ảnh ở giữa */
+}
+
+.heart-image {
+    position: absolute;
+    left: 62%;
+    top: 210px; /* Điều chỉnh theo nhu cầu */
+    width: 57px; /* Điều chỉnh kích thước */
+    height: auto;
+    transform: rotate(-23.295deg);
+    z-index: 2; /* Ảnh ở giữa */
+}
+
+.message-image {
+    position: absolute;
+    left: 13%;
+    top: 110px; /* Điều chỉnh theo nhu cầu */
+    transform: rotate(23.295deg);
+    width: 65px; /* Điều chỉnh kích thước */
+    height: auto;
+    z-index: 2; /* Ảnh ở giữa */
+}
+
+.title {
+    color: #004643;
+    font-family: "Inknut Antiqua", serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 80px;
+    letter-spacing: 13px;
+    text-align: center;
+    text-shadow: 0 4px 4px rgba(0, 70, 67, 0.25);
+    z-index: 3;
+    position: absolute;
+    top: 93px;
+    left: 31%;
+
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    top: 340px;
+}
+
+.input-group {
+    width: 250px;
+}
+
+.label {
+    font-family: "Inria Serif", serif;
+    font-size: 20px;
+    color: #000;
+    text-align: left;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-field {
+    width: 250px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: none;
+    padding-left: 15px;
+    font-family: "Inria Serif", serif;
+    font-size: 15px;
+    background-color: #eee4ed;
+}
+
+.user-icon,
+.password-icon {
+    position: absolute;
+    left: -45px;
+    width: 30px;
+    height: 30px;
+}
+
+.eye-icon {
+    position: absolute;
+    left: 85%;
+    top: 30%;
+    width: 25px;
+    height: 17px;
+    opacity: 50%;
+}
+
+.toggle-password {
+    cursor: pointer;
+}
+
+.eye-icon:hover {
+    opacity: 100%;
+}
+
+.sign-in-button {
+    width: 160px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Inknut Antiqua", serif;
+    font-size: 18px;
+    color: #000;
+    margin-top: 20px;
+    background-color: #d5e1d3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng mượt */
+}
+
+.sign-in-button:hover {
+    background-color: #879b87; /* Đổi sang màu tối hơn */
+    color: #fff; /* Đổi màu chữ thành trắng */
+}
+
+.signup-text {
+    font-family: "Inria Serif", serif;
+    font-size: 15px;
+    color: #000;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.signup-link {
+    color: #000;
+    text-decoration: underline;
+    font-family: "Inria Serif", serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.signup-link:hover {
+    color: #879b87
+}
+
+.input-group {
+    width: 250px;
+}
+
+
+
