@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <link href="../css/global.css" rel="stylesheet"/>
+  <style>
+    html, body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #d0eddf;
+      margin: 0;
+    }
+
+
+    /* Định dạng chung */
+    .content-area {
+      position: relative;
+      width: 402px;
+      height: 804px;
+      background-color: #fff3ec;
+    }
+
+    .content-area .overlap-group {
+      position: relative;
+      height: 838px;
+    }
+
+    .content-area .text-wrapper {
+      position: absolute;
+      width: 26px;
+      top: 66px;
+      left: 340px;
+      font-family: "Kings-Regular", Helvetica;
+      font-weight: 400;
+      color: #1f1235;
+      font-size: 12px;
+      text-align: center;
+      text-decoration: line-through;
+    }
+
+    /* Ảnh */
+    .content-area .image {
+      position: absolute;
+      width: 402px;
+      height: 838px;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      opacity: 0.10;
+    }
+
+    /* Tiêu đề chính */
+    .content-area .div {
+      position: absolute;
+      width: 273px;
+      top: 299px;
+      left: 64px;
+      font-family: "Inria Serif-BoldItalic", Helvetica;
+      font-weight: 700;
+      font-style: italic;
+      color: #004643;
+      font-size: 48px;
+      text-align: center;
+    }
+
+    /* Văn bản mô tả */
+    .content-area .p {
+      position: absolute;
+      width: 279px;
+      top: 461px;
+      left: 59px;
+      font-family: "Inria Serif-Light", Helvetica;
+      font-weight: 300;
+      color: #004643;
+      font-size: 20px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Nút CONTINUE */
+    .continue-text {
+      position: absolute;
+      width: 100%;
+      top: 649px;
+      text-align: center;
+    }
+
+    .clickable-text {
+      font-family: "Inria Serif-Bold", Helvetica;
+      font-weight: 700;
+      color: #004643;
+      font-size: 32px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .clickable-text:hover {
+      color: #002d2b;
+      text-decoration: none;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="content-area">
+  <div class="overlap-group">
+    <div class="text-wrapper">CUPID</div>
+    <img alt="" class="image" src="../img/image-12.jpg"/>
+    <p class="div">Your profile has been created.</p>
+    <p class="p">Let’s get to know you more!</p>
+    <p class="continue-text">
+      <a class="clickable-text" href="mbti.html">CONTINUE</a>
+    </p>
+  </div>
+</div>
+</body>
+
+</html>
+
+
