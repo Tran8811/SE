@@ -2,9 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CUPID</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBTI Test</title>
+  <link rel="stylesheet" href="../css/mbti.css">
+  <link href="../css/global.css" rel="stylesheet"/>
+  <link href="../css/sign_in.css" rel="stylesheet"/>
 </head>
 <body>
 
+<div class="content-area">
+  <p class="header-text">CUPID</p>
+
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+
+  <div class="question-container">
+    <p class="question-text" id="question-text">Câu hỏi</p>
+  </div>
+
+  <div id="answers-container">
+    <!-- Các đáp án sẽ được render bằng JavaScript -->
+  </div>
+
+  <div class="button-container">
+    <button type="button" id="prevBtn" onclick="prevQuestion()">⬅ Quay lại</button>
+    <button type="button" id="nextBtn" onclick="nextQuestion()">Tiếp theo ➡</button>
+  </div>
+</div>
+
+<script src="../js/mbti.js"></script>
+<script src="../js/alert.js"></script>
 </body>
 </html>
