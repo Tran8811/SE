@@ -2,8 +2,8 @@
 
 $servername = "localhost";
 $username = "root";  // Tài khoản MySQL của bạn
-$password = "chipchip1703";      // Mật khẩu MySQL (nếu có)
-$dbname = "cupid_db";  // Tên database của bạn
+$password = "0730AyUu";      // Mật khẩu MySQL (nếu có)
+$dbname = "cupid";  // Tên database của bạn
 
 // Kết nối MySQL
 $conn = new mysqli($servername, $username, $password, $dbname);
