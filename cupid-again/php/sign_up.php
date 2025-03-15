@@ -32,10 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   // Lưu vào database
-  $insertQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
+  $insertQuery = "INSERT INTO users (username, password, mbti) VALUES (?, ?, NULL)";
   if ($stmt = $conn->prepare($insertQuery)) {
     $stmt->bind_param("ss", $username, $password);
     if ($stmt->execute()) {
+      $_SESSION["username"] = $username;
+      $_SESSION["user_id"] = $stmt->insert_id;
+      session_write_close();
       echo json_encode(["status" => "success", "message" => "Đăng ký thành công!"]);
     } else {
       echo json_encode(["status" => "error", "message" => "Lỗi đăng ký, thử lại!"]);

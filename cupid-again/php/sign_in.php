@@ -1,6 +1,6 @@
 <?php
 
-
+session_start();
 $servername = "localhost";
 $username = "root";  // Tài khoản MySQL của bạn
 $password = "chipchip1703";      // Mật khẩu MySQL (nếu có)
@@ -21,8 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $result = $stmt->get_result();
 
   if ($result->num_rows > 0) {
-    // Đăng nhập thành công
     $_SESSION["username"] = $username;
+    $_SESSION["user_id"] = $stmt->insert_id;
+    session_write_close();
     echo json_encode(["status" => "success", "message" => "Login successful"]);
   } else {
     // Sai tài khoản hoặc mật khẩu
