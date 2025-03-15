@@ -26,7 +26,6 @@ let answers = {
   "J-P": { J: 0, P: 0 }
 };
 
-// Lưu lựa chọn của từng câu
 let selectedAnswers = {};
 
 function showQuestion() {
@@ -38,6 +37,8 @@ function showQuestion() {
     return;
   }
 
+  updateProgressBar();
+
   const q = questions[currentQuestionIndex];
   questionText.innerText = `Câu ${currentQuestionIndex + 1}: ${q.text}`;
   answersContainer.innerHTML = "";
@@ -48,7 +49,6 @@ function showQuestion() {
     answerDiv.innerText = option;
     answerDiv.onclick = () => selectAnswer(index, answerDiv);
 
-    // Kiểm tra xem đã chọn đáp án nào trước đó chưa
     if (selectedAnswers[currentQuestionIndex] === index) {
       answerDiv.classList.add("answer-selected");
     }
@@ -64,17 +64,14 @@ function selectAnswer(optionIndex, element) {
   const selectedType = q.type;
   const selectedValue = q.options[optionIndex][0];
 
-  // Nếu trước đó đã chọn một đáp án khác, trừ điểm đáp án cũ
   if (selectedAnswers[currentQuestionIndex] !== undefined) {
     const prevValue = q.options[selectedAnswers[currentQuestionIndex]][0];
     answers[selectedType][prevValue]--;
   }
 
-  // Lưu đáp án đã chọn
   selectedAnswers[currentQuestionIndex] = optionIndex;
   answers[selectedType][selectedValue]++;
 
-  // Cập nhật giao diện
   document.querySelectorAll(".answer-box").forEach(box => {
     box.classList.remove("answer-selected");
   });
@@ -99,61 +96,60 @@ function prevQuestion() {
 
 function showResult() {
   let mbti = "";
-  mbti += (answers["E-I"] === "E") ? "E" : "I";
-  mbti += (answers["S-N"] === "S") ? "S" : "N";
-  mbti += (answers["T-F"] === "T") ? "T" : "F";
-  mbti += (answers["J-P"] === "J") ? "J" : "P";
+  mbti += (answers["E-I"].E > answers["E-I"].I) ? "E" : "I";
+  mbti += (answers["S-N"].S > answers["S-N"].N) ? "S" : "N";
+  mbti += (answers["T-F"].T > answers["T-F"].F) ? "T" : "F";
+  mbti += (answers["J-P"].J > answers["J-P"].P) ? "J" : "P";
 
+  const mbtiDescriptions = {
+    "ENFJ": "Nhà lãnh đạo truyền cảm hứng",
+    "ENFP": "Nhà thám hiểm sáng tạo",
+    "ENTJ": "Nhà lãnh đạo chiến lược",
+    "ENTP": "Nhà tranh luận thông minh",
+    "ESFJ": "Người quan tâm đến cộng đồng",
+    "ESFP": "Người nghệ sĩ vui vẻ",
+    "ESTJ": "Nhà điều hành kỷ luật",
+    "ESTP": "Nhà thám hiểm hành động",
+    "INFJ": "Người bảo vệ lý tưởng",
+    "INFP": "Người mơ mộng",
+    "INTJ": "Nhà chiến lược tương lai",
+    "INTP": "Nhà tư duy logic",
+    "ISFJ": "Người bảo vệ tận tâm",
+    "ISFP": "Nghệ sĩ tự do",
+    "ISTJ": "Người có trách nhiệm",
+    "ISTP": "Người thợ thủ công"
+  };
+  const mbtiTitle = mbtiDescriptions[mbti] || "Tính cách chưa xác định";
+
+  function saveMBTI(mbti) {
+    fetch("/cupid-again/php/save_mbti.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `mbti=${mbti}`
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message); // Hiển thị thông báo từ server
+      })
+      .catch(error => console.error("Lỗi:", error));
+  }
+  saveMBTI(mbti);
   document.getElementById("question-text").innerText = "Kết quả MBTI của bạn:";
-
-  // Ẩn thanh tiến trình
   document.getElementById("progress-container").style.display = "none";
 
-  // Hiển thị kết quả với chữ to hơn
-  document.getElementById("answers-container").innerHTML = `<h2 style="font-size: 40px;">${mbti}</h2>`;
-
+  document.getElementById("answers-container").innerHTML = `
+    <h2 style="font-size: 40px;">${mbti}</h2>
+    <p style="font-size: 24px; font-weight: bold;">${mbtiTitle}</p>
+  `;
 
   document.getElementById("prevBtn").style.display = "none";
   document.getElementById("nextBtn").style.display = "none";
 }
-
 
 function updateProgressBar() {
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
   document.getElementById("progress-bar").style.width = `${progress}%`;
 }
 
-function showQuestion() {
-  const questionText = document.getElementById("question-text");
-  const answersContainer = document.getElementById("answers-container");
-
-  if (currentQuestionIndex >= questions.length) {
-    showResult();
-    return;
-  }
-
-  updateProgressBar(); // Cập nhật tiến trình
-
-  const q = questions[currentQuestionIndex];
-  questionText.innerText = `Câu ${currentQuestionIndex + 1}: ${q.text}`;
-  answersContainer.innerHTML = "";
-
-  q.options.forEach((option, index) => {
-    const answerDiv = document.createElement("div");
-    answerDiv.classList.add("answer-box");
-    answerDiv.innerText = option;
-    answerDiv.onclick = () => selectAnswer(index, answerDiv);
-
-    if (selectedAnswers[currentQuestionIndex] === index) {
-      answerDiv.classList.add("answer-selected");
-    }
-
-    answersContainer.appendChild(answerDiv);
-  });
-
-  document.getElementById("prevBtn").disabled = currentQuestionIndex === 0;
-}
-
-
 // Hiển thị câu hỏi đầu tiên khi trang tải lên
-showQuestion();
+document.addEventListener("DOMContentLoaded", showQuestion);
