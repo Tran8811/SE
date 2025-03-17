@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUPID</title>
+  <link rel="stylesheet" href="../css/show_users.css">
+</head>
+<body>
+<div class="container">
+  <h1 class="title">Find a partner here!</h1>
+  <div class="user-list" id="user-list">
+    <!-- Các user card sẽ được tạo động từ API -->
+  </div>
+</div>
+
+<!-- Popup chi tiết người dùng -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img id="popup-avatar" src="" alt="Avatar" class="user-avatar">
+    <h2 id="popup-name"></h2>
+    <p id="popup-mbti"></p>
+    <p id="popup-age"></p>
+    <p id="popup-gender"></p>
+    <button id="chat-btn">Bắt đầu chat</button>
+  </div>
+</div>
+
+<script>
+  // Hàm mở popup
+  function openPopup(name, mbti, age, gender, avatar) {
+    document.getElementById("popup-name").innerText = name;
+    document.getElementById("popup-mbti").innerText = `MBTI: ${mbti}`;
+    document.getElementById("popup-age").innerText = `Tuổi: ${age}`;
+    document.getElementById("popup-gender").innerText = `Giới tính: ${gender}`;
+    document.getElementById("popup-avatar").src = "../img/" + avatar;
+
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup").classList.add("show");
+
+    const chatBtn = document.getElementById("chat-btn");
+    const currentChat = sessionStorage.getItem("currentChat"); // Dùng sessionStorage
+
+    if (currentChat) {
+      chatBtn.innerText = "Đang chat với " + currentChat;
+      chatBtn.disabled = true;
+    } else {
+      chatBtn.innerText = "Bắt đầu chat";
+      chatBtn.disabled = false;
+      chatBtn.onclick = function () {
+        sessionStorage.setItem("currentChat", name);
+        window.location.href = "chatting.html";
+      };
+    }
+  }
+
+  function closePopup() {
+    document.getElementById("popup").classList.remove("show");
+    setTimeout(() => {
+      document.getElementById("popup").style.display = "none";
+    }, 300); // Chờ hiệu ứng đóng
+  }
+
+  // Lấy dữ liệu người dùng từ API
+  function loadUsers() {
+    const userId = 1; // ID của người dùng hiện tại (có thể lấy từ session hoặc cookie)
+
+    // Thêm một chỉ báo "loading"
+    const userListContainer = document.getElementById("user-list");
+    userListContainer.innerHTML = "Đang tải...";  // Hiển thị thông báo đang tải
+
+    //fetch(`/cupid-again/php/match_api.php?id=${userId}`)
+    fetch(`/cupid-again/php/match_api.php?id=${userId}`, {
+      method: "GET",
+      headers: {
+        "Authorization": "Basic " + btoa("admin:123456") , // Mã hóa user:password
+        "Content-Type": "application/json" // Thêm header này nếu API yêu cầu JSON
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        userListContainer.innerHTML = '';  // Xóa thông báo "loading"
+        //const userListContainer = document.getElementById("user-list");
+
+        data.forEach(user => {
+          const userCard = document.createElement('div');
+          userCard.classList.add('user-card');
+          userCard.style.backgroundColor = user.backgroundColor || '#d3d3d3'; // Màu nền của card có thể thay đổi tùy thuộc vào dữ liệu
+          userCard.setAttribute('onclick', `openPopup('${user.username}', '${user.mbti}', ${user.age}, '${user.gender}', '${user.avatar}')`);
+
+          userCard.innerHTML = `
+            <img src="../img/${user.avatar}" alt="avatar" class="user-avatar">
+            <div class="user-info">
+              <h2>${user.username}</h2>
+              <p>MBTI: ${user.mbti}</p>
+            </div>
+          `;
+          userListContainer.appendChild(userCard);
+        });
+      })
+      .catch(error => console.error('Error fetching user data:', error));
+  }
+
+  // Gọi hàm loadUsers khi trang được tải
+  window.onload = loadUsers;
+</script>
+</body>
+</html>
