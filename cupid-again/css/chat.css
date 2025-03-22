@@ -159,3 +159,11 @@ body {
   font-weight: bold;
   color: #333;
 }
+.chat-input input {
+  pointer-events: auto; /* Cho phép nhập */
+  opacity: 1; /* Hiển thị đầy đủ */
+}
+.chat-input button {
+  pointer-events: auto;
+  cursor: pointer;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/facebook/graph-sdk" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/google/apiclient" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/google/apiclient-services" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/phpmailer/phpmailer" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/phpseclib/phpseclib" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/cupid-again/vendor/symfony/deprecation-contracts" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

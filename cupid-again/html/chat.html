@@ -20,15 +20,28 @@
     </button>
     <p class="puppy-logo-text">CHAT WITH CUPID</p>
   </div>
-  <div class="chat-box">
-    <div class="message received">Xin chào! 😊</div>
-    <div class="message sent">Chào bạn! 🚀</div>
+
+  <!-- Thêm dropdown chọn người chat -->
+  <label for="chatWith">Chọn người để chat:</label>
+  <select id="chatWith">
+    <option value="">Chọn người...</option>
+    <!-- Danh sách user sẽ được load từ server -->
+  </select>
+
+  <!-- Hộp chat -->
+  <div class="chat-box" id="chatBox">
+    <!-- Tin nhắn sẽ được thêm vào đây -->
   </div>
+
+  <!-- Ô nhập tin nhắn -->
   <div class="chat-input">
-    <input type="text" id="message" placeholder="Nhập tin nhắn...">
-    <button id="sendBtn">Gửi</button>
+    <input type="text" id="message" placeholder="Nhập tin nhắn..." disabled>
+    <button id="sendBtn" disabled>Gửi</button>
   </div>
 </div>
+
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
 <script defer src="../js/chat.js"></script>
+
 </body>
 </html>
