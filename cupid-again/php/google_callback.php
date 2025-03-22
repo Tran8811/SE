@@ -39,7 +39,7 @@ if (isset($_GET['code'])) {
   $_SESSION['user_email'] = $email;
   $_SESSION['user_name'] = $name;
 
-  header("Location: http://localhost:8080/cupid2/src/html/sign_up_2.html");
+  header("Location: http://localhost:8080/cupid-again/html/sign_up_2.html");
   exit();
 
 }

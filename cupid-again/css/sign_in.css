@@ -145,7 +145,7 @@
 
 .signup-text {
     font-family: "Inria Serif", serif;
-    font-size: 15px;
+    font-size: 18px;
     color: #000;
     margin-top: 20px;
     text-align: center;
@@ -165,6 +165,29 @@
 .input-group {
     width: 250px;
 }
+
+.forgot-password-text {
+  text-align: center; /* Căn giữa */
+  font-size: 14px; /* Đổi cỡ chữ */
+  margin-top: 10px; /* Khoảng cách với các phần trên */
+}
+
+.forgot-password-link {
+  position: absolute;
+  width: 160px;
+  top: 165px;
+  left: -15px;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  font-family: "Inria Serif", serif;
+  text-decoration: none; /* Bỏ gạch chân */
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline; /* Gạch chân khi hover */
+}
+
 
 
 

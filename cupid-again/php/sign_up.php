@@ -1,12 +1,20 @@
 <?php
+header("Content-Type: application/json"); // Đảm bảo response là JSON
 session_start();
+
 // Kết nối MySQL
 $servername = "localhost";
 $username = "root";  // Tài khoản MySQL của bạn
 $password = "chipchip1703";      // Mật khẩu MySQL (nếu có)
 $dbname = "cupid_db";
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+if ($conn->connect_error) {
+  die(json_encode(["status" => "error", "message" => "Kết nối tới cơ sở dữ liệu thất bại: " . $conn->connect_error]));
+}
+
+// Kiểm tra yêu cầu POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = trim($_POST["username"]);
   $password = trim($_POST["password"]);
@@ -29,6 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt->close();
   }
+
+  // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
 
 
   // Lưu vào database
