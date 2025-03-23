@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
-    //List<User> findByMbti(String mbti); // Tìm người dùng theo MBTI
     List<User> findByMbti(String mbti); // Tìm người dùng theo MBTI
+    List<User> findByMbtiIn(List<String> mbtiList);
 
 }

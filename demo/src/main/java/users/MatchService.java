@@ -35,17 +35,48 @@ public class MatchService {
 //                .collect(Collectors.toList());
 //    }
 
+    /// OKAY
+//    public List<User> findMatches(Long userId) {
+//        System.out.println("🔍 API findMatches được gọi với ID: " + userId);
+//        User user = userRepository.findById(userId).orElse(null);
+//        if (user == null) {
+//            System.out.println("⚠️ Không tìm thấy user với ID: " + userId);
+//            return List.of();
+//        }
+//         //Tìm kiếm tất cả người dùng có cùng MBTI với người dùng này
+//        return userRepository.findByMbti(user.getMbti()).stream()
+//                .filter(u -> !u.getId().equals(userId)) // Loại bỏ người dùng chính mình
+//                .collect(Collectors.toList()); // Trả về danh sách người dùng có cùng MBTI
+//    }
+
     public List<User> findMatches(Long userId) {
         System.out.println("🔍 API findMatches được gọi với ID: " + userId);
+
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
             System.out.println("⚠️ Không tìm thấy user với ID: " + userId);
             return List.of();
         }
-         //Tìm kiếm tất cả người dùng có cùng MBTI với người dùng này
-        return userRepository.findByMbti(user.getMbti()).stream()
-                .filter(u -> !u.getId().equals(userId)) // Loại bỏ người dùng chính mình
-                .collect(Collectors.toList()); // Trả về danh sách người dùng có cùng MBTI
+
+        // Bảng độ hợp MBTI
+        Map<String, List<String>> compatibilityChart = Map.of(
+                "ISTJ", List.of("ISFJ", "ESTJ", "ESFJ"),
+                "ISFJ", List.of("ISTJ", "ESFJ", "ESTJ"),
+                "ENTP", List.of("INFJ", "INTP"),
+                "INFJ", List.of("ENTP", "INTP"),
+                "INTJ", List.of("ENTP", "INTP", "ENFP","INFJ") // Thêm INTJ vào bảng độ hợp
+        );
+
+        // MBTI của user hiện tại
+        String userMbti = user.getMbti();
+
+        // Lấy danh sách MBTI phù hợp
+        List<String> compatibleMbtiList = compatibilityChart.getOrDefault(userMbti, List.of());
+
+        // Tìm danh sách user có MBTI thuộc danh sách trên
+        return userRepository.findByMbtiIn(compatibleMbtiList).stream()
+                .filter(u -> !u.getId().equals(userId)) // Loại bỏ chính user đó
+                .collect(Collectors.toList());
     }
 
 //    public List<User> findMatches(Long id) {
