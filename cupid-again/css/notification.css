@@ -1,0 +1,28 @@
+.back-button{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-self: flex-start; /* Đẩy về lề trái */
+  border: none;
+}
+.back-button-logo {
+  width: 30px; /* Điều chỉnh kích thước */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("https://cdn.builder.io/api/v1/image/assets/TEMP/e68fd6c3f2ab1ff46421e4a7ac072d069f3385fab2f814fe93158c1166e4120a?placeholderIfAbsent=true&apiKey=900875ef9ddd4938952c98e4afe5bae0") no-repeat center center; /* Đặt ảnh làm background */
+  background-size: contain; /* Đảm bảo ảnh vừa khung */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  margin-left: auto;
+}
+.puppy-logo-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+}
