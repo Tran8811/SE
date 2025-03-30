@@ -1,0 +1,51 @@
+<!doctype html>
+<!--suppress ALL -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>CUPID</title>
+  <!-- Open Graph for share on FB, Zalo...-->
+  <meta content="Cupid - Chatting & dating app." name="description">
+  <meta content="Cupid - Chatting & dating app." property="og:title">
+  <meta content="website" property="og:type">
+  <meta content="" property="og:url"> <!--URL cua web-->
+  <meta content="../img/logo.png" property="og:image">
+  <meta content="Logo" property="og:image:alt">
+  <!-- Logo icon -->
+  <link href="/cupid-again/img/logo.png" rel="icon" sizes="32x32">
+  <link href="/cupid-again/img/logo.svg" rel="icon" type="image/svg+xml">
+  <link href="/cupid-again/img/logo.png" rel="apple-touch-icon" sizes="180x180">
+
+  <link href="../css/global.css" rel="stylesheet">
+  <link href="../css/user_info.css" rel="stylesheet">
+
+  <link href="../site.webmanifest" rel="manifest">
+  <meta content="#fafafa" name="theme-color">
+
+  <script defer src="../js/user_info.js"></script>
+</head>
+
+<body>
+<div class="container">
+  <!-- Thông tin người dùng -->
+  <div class="user-info">
+    <h2>Welcome,  <span id="user-name">Nguyễn Văn A</span></h2>
+    <p>MBTI: <span id="mbti-display">Đang tải...</span></p>
+  </div>
+
+  <!-- Phần chatting -->
+  <div class="chat-box" onclick="openChat()">
+    <img src="friend-avatar.png" alt="Avatar" class="chat-avatar">
+    <p class="chat-name">Trần B</p>
+    <p class="chat-status">Chatting...</p>
+  </div>
+</div>
+
+<a href="chat.html" class="chat-box">
+  <img src="avatar.png" alt="Avatar" class="chat-avatar">
+  <div class="chat-name">Tên Người Chat</div>
+</a>
+
+</body>

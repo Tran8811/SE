@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUPID</title>
+  <link rel="stylesheet" href="../css/show_users.css">
+</head>
+<body>
+<div class="container">
+  <h1 class="title">Find a partner here!</h1>
+
+  <div class="user-list">
+    <div class="user-card" onclick="openPopup('DobDob', 'INTJ', 25, 'Nam', 'dobdob.png')" style="background-color: #f5c6c6;">
+      <img src="../img/logo.png" alt="avatar" class="user-avatar">
+      <div class="user-info">
+        <h2>DobDob</h2>
+        <p>MBTI: INTJ</p>
+      </div>
+    </div>
+
+    <div class="user-card" onclick="openPopup('Dogneverdie', 'ENTP', 22, 'Nam', 'dogneverdie.png')" style="background-color: #d3d3d3;">
+      <img src="../img/logo.png" alt="avatar" class="user-avatar">
+      <div class="user-info">
+        <h2>Dogneverdie</h2>
+        <p>MBTI: ENTP</p>
+      </div>
+    </div>
+
+    <div class="user-card" onclick="openPopup('BerBer', 'ISFJ', 27, 'Nữ', 'berber.png')" style="background-color: #e3d3f5;">
+      <img src="../img/logo.png" alt="avatar" class="user-avatar">
+      <div class="user-info">
+        <h2>BerBer</h2>
+        <p>MBTI: ISFJ</p>
+      </div>
+    </div>
+
+    <div class="user-card" onclick="openPopup('SnowDrop', 'ESFP', 23, 'Nữ', 'snowdrop.png')" style="background-color: #c6e6e6;">
+      <img src="../img/logo.png" alt="avatar" class="user-avatar">
+      <div class="user-info">
+        <h2>SnowDrop</h2>
+        <p>MBTI: ESFP</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP CHI TIẾT NGƯỜI DÙNG -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img id="popup-avatar" src="" alt="Avatar" class="user-avatar">
+    <h2 id="popup-name"></h2>
+    <p id="popup-mbti"></p>
+    <p id="popup-age"></p>
+    <p id="popup-gender"></p>
+    <button id="chat-btn">Bắt đầu chat</button>
+  </div>
+</div>
+
+<script>
+  function openPopup(name, mbti, age, gender, avatar) {
+    document.getElementById("popup-name").innerText = name;
+    document.getElementById("popup-mbti").innerText = `MBTI: ${mbti}`;
+    document.getElementById("popup-age").innerText = `Tuổi: ${age}`;
+    document.getElementById("popup-gender").innerText = `Giới tính: ${gender}`;
+    document.getElementById("popup-avatar").src = "../img/logo.png" //+ avatar;
+
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup").classList.add("show");
+
+    const chatBtn = document.getElementById("chat-btn");
+    const currentChat = sessionStorage.getItem("currentChat"); // Dùng sessionStorage
+
+    if (currentChat) {
+      chatBtn.innerText = "Đang chat với " + currentChat;
+      chatBtn.disabled = true;
+    } else {
+      chatBtn.innerText = "Bắt đầu chat";
+      chatBtn.disabled = false;
+      chatBtn.onclick = function () {
+        sessionStorage.setItem("currentChat", name);
+        window.location.href = "chatting.html";
+      };
+    }
+  }
+
+  function closePopup() {
+    document.getElementById("popup").classList.remove("show");
+    setTimeout(() => {
+      document.getElementById("popup").style.display = "none";
+    }, 300); // Chờ hiệu ứng đóng
+  }
+</script>
+</body>
+</html>

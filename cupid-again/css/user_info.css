@@ -1,0 +1,85 @@
+/* Import font reset */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+/* Kế thừa các styles từ file global */
+.container {
+  width: 375px;
+  height: 100vh;
+  max-height: 100%;
+  background-color: #fdf1ea;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* 🔹 Thông tin người dùng */
+.user-info {
+  width: 90%;
+  background: #ffe6e6;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-info h2 {
+  color: #333;
+  font-size: 20px;
+}
+
+.user-info p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* 🔹 Phần chatting (Là một link bấm vào để sang trang `chatting.html`) */
+.chat-box {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #ccc;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  text-decoration: none;
+  color: #333;
+}
+
+.chat-box:hover {
+  background: #f0f0f0;
+}
+
+.chat-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.chat-name {
+  font-size: 16px;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.chat-status {
+  font-size: 14px;
+  color: #888;
+}
+
+/* 🌟 Responsive */
+@media (max-width: 400px) {
+  .container {
+    width: 100%;
+  }
+
+  .chat-box,
+  .user-info {
+    width: 95%;
+  }
+}
