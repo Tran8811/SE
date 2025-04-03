@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include "session.php";
+
 $unique_id = $_SESSION['unique_id'];
 
 
@@ -50,9 +50,19 @@ $users = mysqli_query($conn, "SELECT * FROM users WHERE unique_id != '$unique_id
   <div class="chat-box" id="chatBox"></div>
 
   <div class="chat-input">
-    <input type="hidden" id="currentUser" value="<?php echo $unique_id; ?>"> <!-- Thêm ID người dùng hiện tại -->
-    <input type="text" id="message" placeholder="Nhập tin nhắn..." >
-    <button id="sendBtn" >Gửi</button>
+    <input type="hidden" id="currentUser" value="<?php echo $unique_id; ?>">
+    <input type="text" id="message" placeholder="Nhập tin nhắn...">
+    <label for="imageInput" class="upload-icon">
+      📷
+    </label>
+    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+    <button id="sendBtn">Gửi</button>
+  </div>
+
+</div>
+<div id="overlay" class="overlay">
+  <div class="overlay-content">
+    <img id="largeImage" src="" alt="Ảnh phóng to">
   </div>
 </div>
 

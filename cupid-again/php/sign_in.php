@@ -43,7 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
-
+    $_SESSION['unique_id'] = $user["unique_id"];
+    $_SESSION['username'] = $user["username"];
     // Trả về JSON chứa `unique_id`
     echo json_encode([
       "status" => "success",

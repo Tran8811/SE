@@ -211,3 +211,75 @@ body {
   max-width: 250px;
 }
 
+/* Ảnh trong tin nhắn: Giữ tỷ lệ và giới hạn kích thước */
+.chat-image {
+  max-width: 200px; /* Giới hạn chiều rộng */
+  max-height: 150px; /* Giới hạn chiều cao */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.chat-image:hover {
+  transform: scale(1.1);
+}
+
+/* Overlay hiển thị ảnh lớn */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overlay-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Khi click ra ngoài sẽ đóng overlay */
+.overlay-content::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#largeImage {
+  max-width: 90vw;  /* 90% chiều rộng màn hình */
+  max-height: 90vh; /* 90% chiều cao màn hình */
+  border-radius: 10px;
+  object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không bị méo */
+  transition: transform 0.3s ease-in-out;
+}
+#closeOverlay {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+.upload-icon {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: inline-block;
+  transition: background 0.3s;
+}
+.upload-icon:hover {
+  background-color: #ccc;
+}
