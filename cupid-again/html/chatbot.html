@@ -29,11 +29,6 @@
     const chatBox = document.getElementById('chat-box');
     const query = queryInput.value.trim();
 
-    ///FILTER BY AGE
-    // Giả sử bạn lấy minAge và maxAge từ input
-    // const minAge = document.getElementById('min-age').value;
-    // const maxAge = document.getElementById('max-age').value;
-
     if (!query) return; // Không gửi nếu trống
 
     // Hiển thị tin nhắn người dùng
@@ -49,33 +44,18 @@
 
       const data = await response.json();
       let botReply = data.answer || "Không có dữ liệu";
-
+      console.log("[DEBUG] Dữ liệu trả về từ server:", data);
       // Nếu chatbot trả về thông tin lọc tuổi
 // Nếu chatbot trả về thông tin lọc tuổi
-      if (data.filter) {  // Chỉ cần data.filter tồn tại
-        const minAge = data.filter.minAge;  // Có thể là số hoặc null
-        const maxAge = data.filter.maxAge;  // Có thể là số hoặc null
-        const location = data.filter.location;
-        // Lưu vào localStorage, xử lý null thành "null" hoặc giá trị mặc định nếu cần
-        localStorage.setItem('minAge', minAge !== null ? minAge : "null");
-        localStorage.setItem('maxAge', maxAge !== null ? maxAge : "null");
-        localStorage.setItem('location', location !== null ? location : "null");
-
+      if (data.filter && typeof data.filter === 'object') {
         botReply += " Danh sách người dùng đã được cập nhật. Vui lòng kiểm tra trang Show Users!";
       }
       // Hiển thị câu trả lời của chatbot
       chatBox.innerHTML += `<div class="message bot">${botReply}</div><div style="clear:both;"></div>`;
       chatBox.scrollTop = chatBox.scrollHeight; // Cuộn xuống tin nhắn mới nhất
 
-      // ///Debug thêm: In giá trị sessionStorage ra console
-      console.log("[hant]sessionStorage sau khi gửi:", {
-        minAge: localStorage.getItem('minAge'),
-        maxAge: localStorage.getItem('maxAge'),
-        location: localStorage.getItem('location')
-      });
-
     } catch (error) {
-      chatBox.innerHTML += `<div class="message bot">Lỗi: ${error.message}</div><div style="clear:both;"></div>`;
+      console.error("[ERROR] Lỗi khi gửi yêu cầu:", error.message);
     }
   }
 </script>
