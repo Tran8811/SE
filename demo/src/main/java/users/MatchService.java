@@ -3,9 +3,7 @@ package users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -13,41 +11,6 @@ public class MatchService {
 
     @Autowired
     private UserRepository userRepository;
-
-    // 🔎 Tìm người trong bán kính nhất định
-    public List<User> findNearby(double lat, double lon, int radius) {
-        return userRepository.findAll().stream()
-                .filter(user -> calculateDistance(lat, lon, user.getLatitude(), user.getLongitude()) <= radius)
-                .collect(Collectors.toList());
-    }
-
-//    // 💕 Tìm người phù hợp theo MBTI
-//    public List<User> findMatches(Long userId) {
-//        User user = userRepository.findById(userId).orElse(null);
-//        if (user == null) return List.of();
-//
-//        return userRepository.findAll().stream()
-//                .filter(u -> !u.getId().equals(userId)) // Không ghép chính mình
-//                .filter(u -> calculateDistance(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude()) <= 5) // 🔥 Chỉ lấy những người cách dưới 5km
-//                .map(u -> new UserMatch(u, calculateCompatibility(user, u))) // Tính điểm tương thích
-//                .sorted((a, b) -> Double.compare(b.getCompatibilityScore(), a.getCompatibilityScore())) // Sắp xếp giảm dần
-//                .map(UserMatch::getUser)
-//                .collect(Collectors.toList());
-//    }
-
-    /// OKAY
-//    public List<User> findMatches(Long userId) {
-//        System.out.println("🔍 API findMatches được gọi với ID: " + userId);
-//        User user = userRepository.findById(userId).orElse(null);
-//        if (user == null) {
-//            System.out.println("⚠️ Không tìm thấy user với ID: " + userId);
-//            return List.of();
-//        }
-//         //Tìm kiếm tất cả người dùng có cùng MBTI với người dùng này
-//        return userRepository.findByMbti(user.getMbti()).stream()
-//                .filter(u -> !u.getId().equals(userId)) // Loại bỏ người dùng chính mình
-//                .collect(Collectors.toList()); // Trả về danh sách người dùng có cùng MBTI
-//    }
 
     public List<User> findMatches(Long userId) {
         System.out.println("🔍 API findMatches được gọi với ID: " + userId);
@@ -58,14 +21,24 @@ public class MatchService {
             return List.of();
         }
 
-        // Bảng độ hợp MBTI
-        Map<String, List<String>> compatibilityChart = Map.of(
-                "ISTJ", List.of("ISFJ", "ESTJ", "ESFJ"),
-                "ISFJ", List.of("ISTJ", "ESFJ", "ESTJ"),
-                "ENTP", List.of("INFJ", "INTP"),
-                "INFJ", List.of("ENTP", "INTP"),
-                "INTJ", List.of("ENTP", "INTP", "ENFP","INFJ") // Thêm INTJ vào bảng độ hợp
-        );
+        Map<String, List<String>> compatibilityChart = new HashMap<>();
+        compatibilityChart.put("INTJ", List.of("ENFP", "ENTJ", "INFJ"));
+        compatibilityChart.put("INTP", List.of("ENTJ", "ENTP", "INFP"));
+        compatibilityChart.put("ENTJ", List.of("INTP", "INTJ", "ENFP"));
+        compatibilityChart.put("ENTP", List.of("INFJ", "INFP", "ENTJ"));
+        compatibilityChart.put("INFJ", List.of("ENTP", "ENFP", "INTJ"));
+        compatibilityChart.put("INFP", List.of("ENFP", "INFJ", "ENTP"));
+        compatibilityChart.put("ENFJ", List.of("INFP", "INFJ", "ENTP"));
+        compatibilityChart.put("ENFP", List.of("INFJ", "INTJ", "INFP"));
+        compatibilityChart.put("ISTJ", List.of("ESTP", "ISFJ", "ENTJ"));
+        compatibilityChart.put("ISFJ", List.of("ESFJ", "ISTJ", "ENFP"));
+        compatibilityChart.put("ESTJ", List.of("ISTJ", "ESTP", "ESFJ"));
+        compatibilityChart.put("ESFJ", List.of("ISFJ", "ENFJ", "ESTP"));
+        compatibilityChart.put("ISTP", List.of("ESTP", "INTP", "ENTJ"));
+        compatibilityChart.put("ISFP", List.of("ESFP", "INFJ", "ENFP"));
+        compatibilityChart.put("ESTP", List.of("ISTP", "ESFP", "ENTJ"));
+        compatibilityChart.put("ESFP", List.of("ISFP", "ESTP", "ENFP"));
+
 
         // MBTI của user hiện tại
         String userMbti = user.getMbti();
@@ -79,43 +52,68 @@ public class MatchService {
                 .collect(Collectors.toList());
     }
 
-//    public List<User> findMatches(Long id) {
-//        // Fake danh sách người dùng phù hợp
-//        return Arrays.asList(
-//                new User(3L, "BerBer", "ISFJ", 27),
-//                new User(4L, "Dogneverdie", "ENTP", 22)
-//        );
-//    }
+    public List<User> findMatches(Long userId, Integer minAge, Integer maxAge, String location) {
+        System.out.println("🔍 API findMatches được lọc thêm nữa: " + userId);
 
-    // 📍 Tính khoảng cách giữa hai người
-    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double x = lat2 - lat1;
-        double y = lon2 - lon1;
-        return Math.sqrt(x * x + y * y) * 111; // 1 độ ≈ 111 km
-    }
-
-    // 💞 Tính điểm tương thích MBTI
-    private double calculateCompatibility(User user1, User user2) {
-        String mbti1 = user1.getMbti();
-        String mbti2 = user2.getMbti();
-
-        if (mbti1.equals(mbti2)) return 100; // Cùng loại -> Tương thích 100%
-
-        Map<String, List<String>> compatibilityChart = Map.of(
-                "ISTJ", List.of("ISFJ", "ESTJ", "ESFJ"),
-                "ISFJ", List.of("ISTJ", "ESFJ", "ESTJ"),
-                "ENTP", List.of("INFJ", "INTP"),
-                "INFJ", List.of("ENTP", "INTP")
-        );
-
-        if (compatibilityChart.containsKey(mbti1) && compatibilityChart.get(mbti1).contains(mbti2)) {
-            return 80; // Nếu nằm trong danh sách hợp -> 80 điểm
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            System.out.println("⚠DEBUG: Không tìm thấy user với ID: " + userId);
+            return List.of();
         }
 
-        return 50; // Mặc định 50 điểm nếu không hợp
+        Map<String, List<String>> compatibilityChart = new HashMap<>();
+        compatibilityChart.put("INTJ", List.of("ENFP", "ENTJ", "INFJ"));
+        compatibilityChart.put("INTP", List.of("ENTJ", "ENTP", "INFP"));
+        compatibilityChart.put("ENTJ", List.of("INTP", "INTJ", "ENFP"));
+        compatibilityChart.put("ENTP", List.of("INFJ", "INFP", "ENTJ"));
+        compatibilityChart.put("INFJ", List.of("ENTP", "ENFP", "INTJ"));
+        compatibilityChart.put("INFP", List.of("ENFP", "INFJ", "ENTP"));
+        compatibilityChart.put("ENFJ", List.of("INFP", "INFJ", "ENTP"));
+        compatibilityChart.put("ENFP", List.of("INFJ", "INTJ", "INFP"));
+        compatibilityChart.put("ISTJ", List.of("ESTP", "ISFJ", "ENTJ"));
+        compatibilityChart.put("ISFJ", List.of("ESFJ", "ISTJ", "ENFP"));
+        compatibilityChart.put("ESTJ", List.of("ISTJ", "ESTP", "ESFJ"));
+        compatibilityChart.put("ESFJ", List.of("ISFJ", "ENFJ", "ESTP"));
+        compatibilityChart.put("ISTP", List.of("ESTP", "INTP", "ENTJ"));
+        compatibilityChart.put("ISFP", List.of("ESFP", "INFJ", "ENFP"));
+        compatibilityChart.put("ESTP", List.of("ISTP", "ESFP", "ENTJ"));
+        compatibilityChart.put("ESFP", List.of("ISFP", "ESTP", "ENFP"));
+
+        // Lọc theo MBTI
+        List<String> compatibleMbtiList = compatibilityChart.getOrDefault(user.getMbti(), List.of());
+        List<User> matchedUsers = userRepository.findByMbtiIn(compatibleMbtiList);
+
+        // Lọc theo tuổi nếu có yêu cầu
+//        if (minAge != null && maxAge != null) {
+//            matchedUsers = matchedUsers.stream()
+//                    .filter(u -> u.getAge() >= minAge && u.getAge() <= maxAge)
+//                    .collect(Collectors.toList());
+//        }
+
+        // Lọc theo tuổi nếu có yêu cầu
+        if (minAge != null) {
+            matchedUsers = matchedUsers.stream()
+                    .filter(u -> u.getAge() >= minAge)
+                    .collect(Collectors.toList());
+        }
+
+        if (maxAge != null) {
+            matchedUsers = matchedUsers.stream()
+                    .filter(u -> u.getAge() <= maxAge)
+                    .collect(Collectors.toList());
+        }
+        // Lọc theo location nếu có yêu cầu
+        if (location != null) {
+            matchedUsers = matchedUsers.stream()
+                    .filter(u -> location.equalsIgnoreCase(u.getLocation()))
+                    .collect(Collectors.toList());
+        }
+
+        return matchedUsers;
     }
 
-    // 📌 Class hỗ trợ lưu thông tin match + điểm tương thích
+
+    // 📌 Class hỗ trợ lưu thông tin match
     private static class UserMatch {
         private final User user;
         private final double compatibilityScore;

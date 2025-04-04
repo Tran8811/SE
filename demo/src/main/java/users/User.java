@@ -9,6 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String location;
 
     private String username;
     private String password;
@@ -32,12 +33,30 @@ public class User {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+
+    ///REAL
+    public User(long id, String name, String mbti, int age, String location) {
+        this.id = id;
+        this.username = name;
+        this.mbti = mbti;
+        this.age = age;
+        this.location = location;
+    }
 //test api
     public User(long l, String name, String mbti, int i) {
         this.id = l;
         this.username = name;
         this.mbti = mbti;
         this.age = i;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Long getId() {
