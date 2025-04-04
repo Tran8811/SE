@@ -3,11 +3,23 @@ header("Content-Type: application/json");
 
 // Lấy ID người dùng từ request
 $userId = isset($_GET['id']) ? $_GET['id'] : 1;
-
+$minAge = isset($_GET['minAge']) ? (int)$_GET['minAge'] : null;
+$maxAge = isset($_GET['maxAge']) ? (int)$_GET['maxAge'] : null;
+$location = isset($_GET['location']) ? urlencode($_GET['location']) : null;
 // Gọi API từ Spring Boot
 $springBootAPI = "http://localhost:8081/users/findMatches?id=" . $userId;
-$response = file_get_contents($springBootAPI);
 
+/// Thêm các tham số lọc nếu có
+if ($minAge !== null) {
+  $springBootAPI .= "&minAge=$minAge";
+}
+if ($maxAge !== null) {
+  $springBootAPI .= "&maxAge=$maxAge";
+}
+if ($location !== null && $location !== "null") {
+  $springBootAPI .= "&location=$location";
+}
+$response = file_get_contents($springBootAPI);
 // Kiểm tra API có phản hồi không
 if ($response === FALSE) {
   echo json_encode(["error" => "Không thể lấy dữ liệu từ API"]);
@@ -17,11 +29,6 @@ if ($response === FALSE) {
 // Chuyển tiếp dữ liệu từ Spring Boot về cho JavaScript
 echo $response;
 ?>
-
-
-
-
-
 <?php
 //// match_api.php
 //session_start();

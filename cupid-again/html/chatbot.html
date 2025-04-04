@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+    #chat-container { max-width: 600px; margin: auto; border: 1px solid #ccc; padding: 10px; border-radius: 8px; background: #f9f9f9; }
+    #chat-box { max-height: 300px; overflow-y: auto; padding: 10px; text-align: left; }
+    .message { padding: 8px 12px; margin: 5px 0; border-radius: 15px; max-width: 80%; display: inline-block; }
+    .user { background: #007bff; color: white; text-align: right; float: right; }
+    .bot { background: #e0e0e0; color: black; text-align: left; float: left; }
+    input { width: 70%; padding: 5px; }
+    button { padding: 5px 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<div id="chat-container">
+  <h2>Chatbot Test</h2>
+  <div id="chat-box"></div>
+  <input type="text" id="query" placeholder="Nhập câu hỏi...">
+  <button onclick="sendQuery()">Gửi</button>
+</div>
+
+<script>
+  async function sendQuery() {
+    const queryInput = document.getElementById('query');
+    const chatBox = document.getElementById('chat-box');
+    const query = queryInput.value.trim();
+
+    ///FILTER BY AGE
+    // Giả sử bạn lấy minAge và maxAge từ input
+    // const minAge = document.getElementById('min-age').value;
+    // const maxAge = document.getElementById('max-age').value;
+
+    if (!query) return; // Không gửi nếu trống
+
+    // Hiển thị tin nhắn người dùng
+    chatBox.innerHTML += `<div class="message user">${query}</div><div style="clear:both;"></div>`;
+    queryInput.value = "";
+
+    try {
+      const response = await fetch("http://127.0.0.1:8080/answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: query })
+      });
+
+      const data = await response.json();
+      let botReply = data.answer || "Không có dữ liệu";
+
+      // Nếu chatbot trả về thông tin lọc tuổi
+// Nếu chatbot trả về thông tin lọc tuổi
+      if (data.filter) {  // Chỉ cần data.filter tồn tại
+        const minAge = data.filter.minAge;  // Có thể là số hoặc null
+        const maxAge = data.filter.maxAge;  // Có thể là số hoặc null
+        const location = data.filter.location;
+        // Lưu vào localStorage, xử lý null thành "null" hoặc giá trị mặc định nếu cần
+        localStorage.setItem('minAge', minAge !== null ? minAge : "null");
+        localStorage.setItem('maxAge', maxAge !== null ? maxAge : "null");
+        localStorage.setItem('location', location !== null ? location : "null");
+
+        botReply += " Danh sách người dùng đã được cập nhật. Vui lòng kiểm tra trang Show Users!";
+      }
+      // Hiển thị câu trả lời của chatbot
+      chatBox.innerHTML += `<div class="message bot">${botReply}</div><div style="clear:both;"></div>`;
+      chatBox.scrollTop = chatBox.scrollHeight; // Cuộn xuống tin nhắn mới nhất
+
+      // ///Debug thêm: In giá trị sessionStorage ra console
+      console.log("[hant]sessionStorage sau khi gửi:", {
+        minAge: localStorage.getItem('minAge'),
+        maxAge: localStorage.getItem('maxAge'),
+        location: localStorage.getItem('location')
+      });
+
+    } catch (error) {
+      chatBox.innerHTML += `<div class="message bot">Lỗi: ${error.message}</div><div style="clear:both;"></div>`;
+    }
+  }
+</script>
+</body>
+</html>

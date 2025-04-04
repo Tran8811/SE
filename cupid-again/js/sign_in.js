@@ -18,45 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    //   fetch("/cupid-again/php/sign_in.php", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //     body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-    //   })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       if (data.status === "success") {
-    //         alert("Login successful");
-    //         window.location.href = "../html/sign_up_2.html"; // Điều hướng sau khi đăng nhập thành công
-    //       } else {
-    //         alert("Invalid username or password");
-    //       }
-    //     })
-    //     .catch(error => console.error("Error:", error));
-    // });
-
-    // fetch("/cupid-again/php/sign_in.php", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-    // })
-    //   .then(response => response.text())  // Đọc phản hồi dưới dạng văn bản
-    //   .then(text => {
-    //     console.log("Phản hồi từ server:", text);  // Log nội dung phản hồi
-    //     try {
-    //       const data = JSON.parse(text);  // Chuyển đổi thành JSON
-    //       if (data.status === "success") {
-    //         alert("Login successful");
-    //         window.location.href = "../html/sign_up_2.html"; // Điều hướng sau khi đăng nhập thành công
-    //       } else {
-    //         alert("Invalid username or password");
-    //       }
-    //     } catch (error) {
-    //       console.error("Không thể phân tích cú pháp JSON:", error);
-    //       console.log("Phản hồi không phải JSON:", text);  // In ra phản hồi nếu không thể parse JSON
-    //     }
-    //   })
-    //   .catch(error => console.error("Error:", error));
     fetch("/cupid-again/php/sign_in.php", {
       method: "POST",
       headers: {"Content-Type": "application/x-www-form-urlencoded"},
@@ -69,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const data = JSON.parse(text);  // Thử chuyển đổi thành JSON
           if (data.status === "success") {
             alert("Login successful");
-            window.location.href = "../html/sign_up_2.html"; // Điều hướng sau khi đăng nhập thành công
+            window.location.href = "../html/profile.html"; // Điều hướng sau khi đăng nhập thành công
           } else {
             alert("Invalid username or password");
           }
@@ -84,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Lỗi:", error);  // In ra lỗi nếu có
         alert("Có lỗi xảy ra khi gửi yêu cầu.");
       });
-      });
-
   });
 
+});

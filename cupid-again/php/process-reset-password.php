@@ -1,53 +1,68 @@
 <?php
+require_once 'get_connection.php'; // Import config.php để lấy biến $conn
+
+// Kiểm tra kết nối database
+if (!isset($conn)) {
+  die("Lỗi kết nối database!");
+}
+
+// Kiểm tra dữ liệu từ form
+if (!isset($_POST["token"], $_POST["password"], $_POST["password_confirmation"])) {
+  die("Dữ liệu không hợp lệ!");
+}
 
 $token = $_POST["token"];
-
 $token_hash = hash("sha256", $token);
 
-$mysqli = new mysqli("localhost", "root", "chipchip1703", "cupid_db");
+// Tìm user có token tương ứng
+$sql = "SELECT * FROM users WHERE reset_token_hash = ?";
+$stmt = $conn->prepare($sql);
 
-
-$sql = "SELECT * FROM users
-        WHERE reset_token_hash = ?";
-
-$stmt = $mysqli->prepare($sql);
+if (!$stmt) {
+  die("Lỗi chuẩn bị truy vấn: " . $conn->error);
+}
 
 $stmt->bind_param("s", $token_hash);
-
 $stmt->execute();
-
 $result = $stmt->get_result();
-
 $user = $result->fetch_assoc();
 
-if ($user === null) {
-  die("token not found");
+// Kiểm tra token hợp lệ
+if (!$user) {
+  die("Token không tồn tại!");
 }
 
 if (strtotime($user["reset_token_expires_at"]) <= time()) {
-  die("token has expired");
+  die("Token đã hết hạn!");
 }
 
-if ( ! preg_match("/[a-z]/i", $_POST["password"])) {
-  die("Password must contain at least one letter");
+// Kiểm tra mật khẩu
+$password = $_POST["password"];
+$password_confirmation = $_POST["password_confirmation"];
+
+if (!preg_match("/[a-z]/i", $password)) {
+  die("Mật khẩu phải chứa ít nhất một chữ cái!");
 }
 
-if ($_POST["password"] !== $_POST["password_confirmation"]) {
-  die("Passwords must match");
+if ($password !== $password_confirmation) {
+  die("Mật khẩu nhập lại không khớp!");
 }
 
-$password_hash = $_POST["password"];
+// Mã hóa mật khẩu trước khi lưu
+$password_hash = password_hash($password, PASSWORD_DEFAULT);
 
+// Cập nhật mật khẩu và xóa token
 $sql = "UPDATE users
-        SET password = ?,
-            reset_token_hash = NULL,
-            reset_token_expires_at = NULL
+        SET password = ?, reset_token_hash = NULL, reset_token_expires_at = NULL
         WHERE id = ?";
+$stmt = $conn->prepare($sql);
 
-$stmt = $mysqli->prepare($sql);
+if (!$stmt) {
+  die("Lỗi chuẩn bị truy vấn: " . $conn->error);
+}
 
-$stmt->bind_param("ss", $password_hash, $user["id"]);
-
+$stmt->bind_param("si", $password_hash, $user["id"]);
 $stmt->execute();
 
-echo "Password updated. You can now login.";
+echo "Mật khẩu đã được cập nhật. Bạn có thể đăng nhập ngay bây giờ!";
+

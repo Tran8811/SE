@@ -1,60 +1,38 @@
 <?php
-header("Content-Type: application/json"); // Đảm bảo response là JSON
-// Bật hiển thị lỗi PHP
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// Đảm bảo rằng nội dung trả về là JSON
-//header('Content-Type: application/json');
-
 session_start();
-$servername = "localhost";
-$username = "root";  // Tài khoản MySQL của bạn
-$password = "Thu ha123";      // Mật khẩu MySQL (nếu có)
-$dbname = "cupid_db";  // Tên database của bạn
-
-// Kết nối MySQL
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Kiểm tra kết nối MySQL
-if ($conn->connect_error) {
-  die(json_encode(["status" => "error", "message" => "Connection failed: " . $conn->connect_error]));
-}
-
-// Debug lỗi nếu kết nối thất bại
-if (mysqli_connect_errno()) {
-  die(json_encode(["status" => "error", "message" => "Connection failed: " . mysqli_connect_error()]));
+require_once 'get_connection.php'; // Kết nối CSDL
+// Kiểm tra biến $conn có tồn tại không
+if (!isset($conn)) {
+  die(json_encode(["status" => "error", "message" => "Lỗi kết nối database!"]));
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST["username"];
   $password = $_POST["password"];
 
-  // Kiểm tra tài khoản trong database
-  $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+  // Kiểm tra username trong database
+  $sql = "SELECT id, password FROM users WHERE username = ?";
   $stmt = $conn->prepare($sql);
-  if ($stmt === false) {
-    die(json_encode(["status" => "error", "message" => "Error preparing statement: " . $conn->error]));
-  }
-  $stmt->bind_param("ss", $username, $password);
+  $stmt->bind_param("s", $username);
   $stmt->execute();
   $result = $stmt->get_result();
 
-  if ($result->num_rows > 0) {
-    $_SESSION["username"] = $username;
-    $_SESSION["user_id"] = $stmt->insert_id;
-    session_write_close();
-    echo json_encode(["status" => "success", "message" => "Login successful"]);
-    exit();  // Dừng chương trình sau khi trả về JSON
+  if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+    $hashed_password = $user["password"];
+
+    // **So sánh mật khẩu đã nhập với mật khẩu đã mã hóa**
+    if (password_verify($password, $hashed_password)) {
+      $_SESSION["user_id"] = $user["id"];
+      $_SESSION["username"] = $username;
+      echo json_encode(["status" => "success", "message" => "Đăng nhập thành công!"]);
+    } else {
+      echo json_encode(["status" => "error", "message" => "Mật khẩu không đúng!"]);
+    }
   } else {
-    // Sai tài khoản hoặc mật khẩu
-    echo json_encode(["status" => "error", "message" => "Invalid username or password"]);
-    exit();  // Dừng chương trình sau khi trả về JSON
+    echo json_encode(["status" => "error", "message" => "Tên người dùng không tồn tại!"]);
   }
 
   $stmt->close();
   $conn->close();
 }
-?>

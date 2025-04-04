@@ -8,6 +8,8 @@
   <link href="/cupid-again/img/logo.png" rel="icon" sizes="32x32">
   <link href="/cupid-again/img/logo.svg" rel="icon" type="image/svg+xml">
   <link href="/cupid-again/img/logo.png" rel="apple-touch-icon" sizes="180x180">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 
   <link href="../css/global.css" rel="stylesheet"/>
   <link href="../css/sign_up.css" rel="stylesheet"/>
@@ -20,21 +22,12 @@
     <div class="sign-in">
       <div class="overlap-group">
         <div class="overlap-2">
-          <div class="apple">
-            <div class="overlap-group-2">
-              <div class="rectangle"></div>
-              <img class="image" src="../img/apple.png"/>
-            </div>
-          </div>
           <div class="google">
-            <a href="../php/google_login.php">
-            <img class="img" src="../img/gmail.PNG"/>
+            <a href="../php/google_login.php" id="google-login-button">
+              <img class="img" src="../img/gmail.PNG"/>
             </a>
           </div>
           <div class="text-wrapper-2">Or Register With</div>
-        </div>
-        <div class="facebook" onclick="loginWithFacebook()">
-          <img class="image-2" src="../img/facebook.PNG"/>
         </div>
       </div>
       <div class="vector" data-layer="Vector 1" data-svg-wrapper>
@@ -73,6 +66,18 @@
           </svg>
         </div>
       </div>
+      <div class="email">
+        <div class="overlap-group-3">
+          <div class="mail-icon">
+            <svg fill="none" height="35" viewBox="0 0 35 35" width="35" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 10L17.5 18.75L30 10M5 10V25H30V10M5 10L17.5 18.75L30 10"
+                    stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+            </svg>
+          </div>
+          <input class="email-input" id="email" placeholder="Enter your email" type="email">
+        </div>
+        <div class="text-wrapper-5">Email</div>
+      </div>
       <div class="password">
         <div class="password-container">
           <div class="overlap-group-3">
@@ -105,6 +110,6 @@
   </div>
 </div>
 <script src="../js/sign_up.js" type="text/javascript"></script>
-
 </body>
 </html>
+

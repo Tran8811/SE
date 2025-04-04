@@ -1,0 +1,107 @@
+/* Form chỉnh sửa */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.title {
+  font-family: "Inknut Antiqua", serif;
+  font-weight: bold;
+  color: #333;
+  font-size: 25px;
+  padding-bottom: 15px;
+}
+
+.user-info label {
+  font-weight: bold;
+}
+
+.user-info input, .user-info select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover; /* Giữ tỷ lệ ảnh, không bị méo */
+  margin-bottom: 10px;
+}
+
+/* Nút lưu và hủy */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.save-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+
+}
+
+.cancel-btn {
+  background: #dc3545;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.mbti-selection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select-mbti-btn {
+  background: #4a90e2;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.select-mbti-btn:hover {
+  background: #ff9df7;
+}
+
+.radio-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.radio-group input {
+  margin-right: 5px;
+}
+
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50% !important;
+}
+
+
+

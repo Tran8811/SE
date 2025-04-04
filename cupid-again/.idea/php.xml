@@ -23,6 +23,7 @@
       <path value="$PROJECT_DIR$/vendor/google/apiclient-services" />
       <path value="$PROJECT_DIR$/vendor/facebook/graph-sdk" />
       <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
+      <path value="$APPLICATION_HOME_DIR$/php-8.4.5-Win32-vs17-x64" />
     </include_path>
   </component>
   <component name="PhpUnit">

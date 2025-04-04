@@ -63,25 +63,42 @@
   }
 
   // Lấy dữ liệu người dùng từ API
-  function loadUsers() {
+  function loadUsers(minAge = null, maxAge = null, location = null) {
     const userId = 1; // ID của người dùng hiện tại (có thể lấy từ session hoặc cookie)
-
+    let url = `/cupid-again/php/match_api.php?id=${userId}`;
     // Thêm một chỉ báo "loading"
     const userListContainer = document.getElementById("user-list");
     userListContainer.innerHTML = "Đang tải...";  // Hiển thị thông báo đang tải
 
-    //fetch(`/cupid-again/php/match_api.php?id=${userId}`)
-    fetch(`/cupid-again/php/match_api.php?id=${userId}`, {
+    // Nếu có lọc tuổi, thêm vào URL
+    if (minAge !== null || maxAge !== null || location !== null) {
+      if (minAge !== null) url += `&minAge=${minAge}`;
+      if (maxAge !== null) url += `&maxAge=${maxAge}`; // Chỉ thêm nếu maxAge không null
+      if(location!=null) {
+        //url += `&location=${encodeURIComponent(location)}`; // Chuyển "Hà Nội" thành "Ha%20Noi";
+        url += `&location=${location}`;
+      }
+      console.log(`Debug: Gọi API với bộ lọc tuổi - ${url}`);
+    } else {
+      console.log(`Debug: Gọi API không có bộ lọc tuổi - ${url}`);
+    }
+
+    fetch(url, {
       method: "GET",
       headers: {
         "Authorization": "Basic " + btoa("admin:123456") , // Mã hóa user:password
-        "Content-Type": "application/json" // Thêm header này nếu API yêu cầu JSON
+        "Content-Type": "application/json"
       }
     })
       .then(response => response.json())
       .then(data => {
         userListContainer.innerHTML = '';  // Xóa thông báo "loading"
         //const userListContainer = document.getElementById("user-list");
+
+        if (data.length === 0) {
+          userListContainer.innerHTML = '<p>Không tìm thấy người dùng phù hợp.</p>';
+          return;
+        }
 
         data.forEach(user => {
           const userCard = document.createElement('div');
@@ -94,6 +111,7 @@
             <div class="user-info">
               <h2>${user.username}</h2>
               <p>MBTI: ${user.mbti}</p>
+              <p>Tuổi: ${user.age}</p>
             </div>
           `;
           userListContainer.appendChild(userCard);
@@ -102,8 +120,39 @@
       .catch(error => console.error('Error fetching user data:', error));
   }
 
+  // Kiểm tra sessionStorage và cập nhật danh sách
+  let lastMinAge = null;
+  let lastMaxAge = null;
+
+  function checkFilterUpdates() {
+    const minAge = localStorage.getItem('minAge');
+    const maxAge = localStorage.getItem('maxAge');
+    const location = localStorage.getItem('location');
+
+    // Gọi loadUsers ngay cả khi không có bộ lọc để đảm bảo hiển thị lần đầu
+    if (minAge !== lastMinAge || maxAge !== lastMaxAge || (lastMinAge === null && lastMaxAge === null)) {
+      console.log(`Debug: Bộ lọc thay đổi - minAge=${minAge}, maxAge=${maxAge}`);
+      const parsedMinAge = (minAge === "null" || minAge === null) ? null : parseInt(minAge);
+      const parsedMaxAge = (maxAge === "null" || maxAge === null) ? null : parseInt(maxAge);
+      if (minAge && maxAge) {
+        if(location != null) {
+          print("location la:" + location);
+          // Xử lý giá trị từ localStorage
+          loadUsers(parsedMinAge, parsedMaxAge,location);
+        } else {
+          loadUsers(parsedMinAge, parsedMaxAge);
+        }
+      } else {
+        loadUsers(); // Không có bộ lọc, tải theo MBTI
+      }
+      lastMinAge = minAge;
+      lastMaxAge = maxAge;
+    }
+  }
   // Gọi hàm loadUsers khi trang được tải
-  window.onload = loadUsers;
+  window.onload = function() {
+    checkFilterUpdates();
+  }
 </script>
 </body>
 </html>

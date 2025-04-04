@@ -62,7 +62,7 @@
 
 .content-area .overlap-group {
   position: absolute;
-  width: 343px;
+  width: 380px;
   height: 114px;
   top: 16px;
   left: 0;
@@ -70,33 +70,16 @@
 
 .content-area .overlap-2 {
   position: absolute;
-  width: 262px;
+  width: 300px;
   height: 114px;
-  top: 0;
+  top: 20px;
   left: 81px;
 }
 
-.content-area .apple {
-  position: absolute;
-  width: 153px;
-  height: 114px;
-  top: 0;
-  left: 109px;
-}
 
 .content-area .overlap-group-2 {
   position: relative;
   height: 114px;
-}
-
-.content-area .rectangle {
-  position: absolute;
-  width: 81px;
-  height: 45px;
-  top: 30px;
-  left: 36px;
-  background-color: #ede1da;
-  border-radius: 15px;
 }
 
 .content-area .image {
@@ -130,7 +113,7 @@
 .content-area .text-wrapper-2 {
   position: absolute;
   width: 160px;
-  top: 0;
+  top: 15px;
   left: 0;
   font-family: "Inria Serif", serif;
   font-weight: 400;
@@ -141,20 +124,6 @@
   line-height: 5px;
 }
 
-.content-area .facebook {
-  position: absolute;
-  width: 82px;
-  height: 45px;
-  top: 30px;
-  left: 0;
-  background-color: #ede1da;
-  border-radius: 15px;
-
-  display: flex; /* Căn giữa */
-  align-items: center; /* Căn giữa dọc */
-  justify-content: center; /* Căn giữa ngang */
-  overflow: hidden; /* Đảm bảo icon không bị tràn */
-}
 
 .content-area .image-2 {
   width: 70px; /* Giữ nguyên kích thước */
@@ -173,10 +142,10 @@
 
 .content-area .sign-up-box {
   position: absolute;
-  width: 152px;
-  height: 34px;
-  top: 583px;
-  left: 132px;
+  width: 130px;
+  height: 30px;
+  top: 630px;
+  left: 140px;
 }
 
 .content-area .sign-up-btn {
@@ -199,7 +168,8 @@
 
 
 .content-area .sign-up-btn:hover {
-  background-color: #b0c5ae; /* Hiệu ứng khi hover */
+    background-color: #879b87; /* Đổi sang màu tối hơn */
+    color: #fff; /* Đổi màu chữ thành trắng */
 }
 
 
@@ -220,7 +190,7 @@
 .content-area .p {
   position: absolute;
   width: 233px;
-  top: -13px;
+  top: 59px;
   left: 23px;
   font-family: "Inria Serif", serif;
   font-weight: 400;
@@ -311,6 +281,34 @@
   z-index: 1;
 }
 
+.content-area .email {
+  position: absolute;
+  width: 309px;
+  height: 68px;
+  top: 162px; /* Đẩy xuống dưới password */
+  left: 0;
+}
+
+.content-area .email-input {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: #eee4ed;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+.content-area .email-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
 
 .content-area .eye-off {
   position: absolute;
@@ -320,17 +318,19 @@
   left: 227px;
   mix-blend-mode: overlay;
 }
-
+/*
+cho username và password, email chữ ở trên
+ */
 .content-area .text-wrapper-5 {
   position: absolute;
   width: 100px;
   height: 15px;
-  top: 0;
+  top: 10px;
   left: 45px;
   font-family: "Inria Serif", serif;
   font-weight: 400;
   color: #000000;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   letter-spacing: 0;
   line-height: 5px;
@@ -412,6 +412,8 @@
   object-fit: cover;
 }
 
+/* chữ sign up tiêu đề
+ */
 .content-area .text-wrapper-8 {
   position: absolute;
   width: 175px;
@@ -421,12 +423,14 @@
   font-family: "Inknut Antiqua", serif;
   font-weight: 700;
   color: #004643;
-  font-size: 48px;
+  font-size: 60px;
   text-align: center;
   letter-spacing: 13px;
   line-height: 80px;
 }
-
+/*
+chữ cupid
+ */
 .content-area .text-wrapper-9 {
   position: absolute;
   width: 26px;
@@ -458,7 +462,8 @@
   background-color: #eee4ed;
   border-radius: 10px;
   border: none;
-  font-size: 16px;
+  font-size: 16px; /* Thay đổi cỡ chữ */
+  font-family: "Inria Serif", serif; /* Thay đổi kiểu chữ */
   outline: none;
   /* Chừa chỗ cho icon */
   padding: 10px 40px 10px 10px;
@@ -492,12 +497,17 @@
   color: black;
   font-size: 15px;
   text-align: center;
+  top: 20px;
 }
 
 .LogIn {
   text-decoration: underline;
   cursor: pointer;
   mix-blend-mode: darken;
+}
+
+.LogIn:hover {
+  color: #879b87
 }
 
 .vector {
@@ -515,7 +525,7 @@ button {
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-top: 10px; /* Dịch xuống 10px */
+  margin-top: 68px; /* Dịch xuống 10px */
   gap: 8px; /* Khoảng cách giữa checkbox và text */
 }
 
@@ -545,4 +555,44 @@ button {
 .checkbox-label input:checked + .custom-checkbox::after {
   display: block; /* Hiện dấu tick khi checked */
 }
+
+.confirm-password {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-confirm-password {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.email {
+  position: relative;
+  width: 100%;
+}
+
+.email-input {
+  width: 100%;
+  padding: 10px;
+  padding-left: 45px; /* Chừa khoảng trống bên trái cho icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: "Inria Serif", serif; /* Thay đổi kiểu chữ */
+}
+
+.mail-icon {
+  position: absolute;
+  left: -43px;  /* Đẩy icon sát mép trái */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+}
+
+
+
+
 

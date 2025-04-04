@@ -1,16 +1,10 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "root";  // Tài khoản MySQL của bạn
-$password = "Thu ha123";  // Mật khẩu MySQL
-$dbname = "cupid_db";
+require_once 'get_connection.php'; // Import file config.php để lấy biến $conn
 
-// Kết nối database
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-  die(json_encode(["status" => "error", "message" => "Kết nối database thất bại!"]));
+// Kiểm tra kết nối database
+if (!isset($conn)) {
+  die(json_encode(["status" => "error", "message" => "Lỗi kết nối database!"]));
 }
 
 // Kiểm tra người dùng đã đăng nhập chưa
@@ -19,8 +13,9 @@ if (!isset($_SESSION["username"])) {
   exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $mbti = $_POST["mbti"];
+// Kiểm tra yêu cầu POST
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["mbti"])) {
+  $mbti = trim($_POST["mbti"]);
   $username = $_SESSION["username"];
 
   // Cập nhật MBTI vào database
@@ -28,18 +23,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($stmt = $conn->prepare($sql)) {
     $stmt->bind_param("ss", $mbti, $username);
     if ($stmt->execute()) {
-      // Nếu thành công, trả về phản hồi thành công
-      header('Content-Type: application/json');
       echo json_encode(["status" => "success", "message" => "Lưu MBTI thành công!"]);
     } else {
-      // Nếu thất bại, trả về phản hồi lỗi
-      header('Content-Type: application/json');
       echo json_encode(["status" => "error", "message" => "Lưu MBTI thất bại!"]);
     }
     $stmt->close();
+  } else {
+    echo json_encode(["status" => "error", "message" => "Lỗi khi chuẩn bị truy vấn!"]);
   }
+} else {
+  echo json_encode(["status" => "error", "message" => "Yêu cầu không hợp lệ!"]);
 }
 
 $conn->close();
 ?>
-

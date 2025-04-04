@@ -1,20 +1,16 @@
 <?php
+/** @noinspection ALL */
 header("Content-Type: application/json"); // Đảm bảo response là JSON
 session_start();
 
-// Kết nối MySQL
-$servername = "localhost";
-$username = "root";  // Tài khoản MySQL của bạn
-$password = "Thu ha123";      // Mật khẩu MySQL (nếu có)
-$dbname = "cupid_db";
+// Import file config.php để dùng biến $conn
+require_once 'get_connection.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-  die(json_encode(["status" => "error", "message" => "Kết nối tới cơ sở dữ liệu thất bại: " . $conn->connect_error]));
+// Kiểm tra biến $conn có tồn tại không
+if (!isset($conn)) {
+  die(json_encode(["status" => "error", "message" => "Lỗi kết nối database!"]));
 }
 
-// Kiểm tra yêu cầu POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = trim($_POST["username"]);
   $password = trim($_POST["password"]);
@@ -42,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
   // Lưu vào database
-  $insertQuery = "INSERT INTO users (username, password, mbti) VALUES (?, ?, NULL)";
+  $insertQuery = "INSERT INTO users (users.username, users.password) VALUES (?, ?)";
   if ($stmt = $conn->prepare($insertQuery)) {
     $stmt->bind_param("ss", $username, $hashedPassword);
     if ($stmt->execute()) {
@@ -60,4 +56,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
   echo json_encode(["status" => "error", "message" => "Yêu cầu không hợp lệ!"]);
 }
-?>
+
