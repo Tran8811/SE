@@ -1,0 +1,59 @@
+<!doctype html>
+<!--suppress ALL -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CUPID</title>
+  <!-- Open Graph for share on FB, Zalo...-->
+  <meta name="description" content="Cupid - Chatting & dating app.">
+  <meta property="og:title" content="Cupid - Chatting & dating app.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content=""> <!--URL cua web-->
+  <meta property="og:image" content="..img/logo.png">
+  <meta property="og:image:alt" content="Logo">
+  <!-- Logo icon -->
+  <link rel="icon" href="../img/logo.png" sizes="32x32">
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../img/logo.png" sizes="180x180">
+
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/profile.css">
+
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+<body>
+<div class="container">
+  <a href="notification.html" class="notification-icon"></a>
+  <!-- Thông tin người dùng -->
+  <div class="user-info">
+    <h2>Welcome, <span id="user-name">Nguyễn Văn A</span></h2>
+    <img id="user-avatar" src="../img/logo.png" alt="Avatar" class="chat-avatar">
+    <p>Age:<span id="user-age">20</span></p>
+    <p>MBTI: <span id="user-mbti">INTJ</span></p>
+    <a href="edit_profile.html" class="edit-icon"></a>
+  </div>
+
+  <!-- Phần chatting -->
+  <a href="../php/chat.php" class="option-box">
+    <img src="../img/logo.png" alt="Avatar" class="chat-avatar">
+    <div class="option-title">Tên Người Chat</div>
+    <div class="option-status">Continue chatting... </div>
+  </a>
+  <!-- Phần xem users khác -->
+  <a href="show_users.html" class="option-box">
+    <div class="option-title">Find your match</div>
+    <div class="option-status">View all your matches here...</div>
+  </a>
+  <!-- Phần Re-test MBTI -->
+  <a href="mbti.html" class="option-box">
+    <div class="option-title">Re-take the MBTI test</div>
+  </a>
+  <button id="logout-btn" class="logout-button">Log Out</button>
+
+</div>
+<script src="../js/profile.js"></script>
+</body>
+</html>

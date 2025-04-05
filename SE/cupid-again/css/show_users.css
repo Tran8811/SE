@@ -1,0 +1,110 @@
+@import url("global.css");
+.title {
+  color: #004643;
+  font-family: "Inknut Antiqua", serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 80px;
+  z-index: 3;
+  top: 0;
+  align-self: center;
+}
+.user-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}
+.user-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 350px;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+.user-card:hover {
+  opacity: 0.8;
+}
+.user-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.user-info h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.user-info p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: gray;
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.popup.show {
+  display: flex;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 200px;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.popup .user-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+}
+.popup h2 {
+  font-size: 24px;
+}
+.popup p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 12px;
+}
+.popup button {
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 18px;
+}
+.popup button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+@media (max-width: 400px) {
+  .user-card {
+    width: 95%;
+  }
+  .popup-content {
+    width: 95%;
+  }
+}

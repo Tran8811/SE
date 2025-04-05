@@ -1,0 +1,129 @@
+.back-button{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 12px;
+  align-self: flex-start; /* Đẩy về lề trái */
+  border: none;
+}
+.back-button-logo {
+  width: 30px; /* Điều chỉnh kích thước */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("https://cdn.builder.io/api/v1/image/assets/TEMP/e68fd6c3f2ab1ff46421e4a7ac072d069f3385fab2f814fe93158c1166e4120a?placeholderIfAbsent=true&apiKey=900875ef9ddd4938952c98e4afe5bae0") no-repeat center center; /* Đặt ảnh làm background */
+  background-size: contain; /* Đảm bảo ảnh vừa khung */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  margin-left: auto;
+}
+.back-button-logo:hover {
+  scale: 1.2;
+}
+
+.back-button-title {
+  font-family: "Inknut Antiqua", serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.notification-box {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  flex-direction: row; /* Đảm bảo icon nằm bên trái */
+  background: #f6dfdf;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  text-decoration: none;
+  color: #333;
+  align-self: center;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.notification-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  border: 3px solid #ccc;
+  margin-right: 12px; /* Tạo khoảng cách giữa icon và nội dung */
+}
+
+.notification-content {
+  display: flex;
+  flex-direction: column; /* Sắp xếp title trên, status dưới */
+  justify-content: center;
+  flex-grow: 1; /* Giúp phần nội dung chiếm hết khoảng trống còn lại */
+}
+
+.notification-title {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.notification-status {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 14px;
+  color: #888;
+}
+
+.notification-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Căn giữa theo chiều ngang */
+  width: 100%;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+button {
+  background: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+

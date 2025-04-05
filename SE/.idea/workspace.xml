@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="73b6c1da-5c39-4ac6-8587-33f2cb5a467a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/cupid-again/css/edit_profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/css/notification.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/css/show_users.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/html/create_profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/html/notification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/html/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/html/show_users.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/img/chatbot_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/js/edit_profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/js/profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/admin_get_users.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/chat.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/dashboard.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/edit_profile.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/get-messages.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/get_avatar.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/get_connection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/get_notifications.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/get_user_profile.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/match_api.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/send-messages.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/send_notifications.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/session.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cupid-again/php/upload_avatar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SE.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/css/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/css/mbti.css" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/css/mbti.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/html/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/html/chat.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/html/mbti.html" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/html/mbti.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/html/sign_up.html" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/html/sign_up.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/html/sign_up_2.html" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/html/sign_up_2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/html/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/html/start.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/js/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/js/chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/css/create_profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/js/mbti.js" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/js/mbti.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/js/sign_in.js" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/js/sign_in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/js/sign_up.js" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/js/sign_up.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/js/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/js/webpack.common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/php/get_users.php" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/php/get_users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/php/process-reset-password.php" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/php/process-reset-password.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/php/reset-password.php" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/php/reset-password.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/php/save_mbti.php" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/php/save_mbti.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/php/send-password-reset.php" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/php/send-password-reset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/php/sign_in.php" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/php/sign_in.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cupid-again/php/sign_up.php" beforeDir="false" afterPath="$PROJECT_DIR$/cupid-again/php/sign_up.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/cupid-again/composer.json" />
+    </option>
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable path="D:\php-8.4.5-Win32-vs17-x64\pharcommand.phar" />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mal0730&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Tran8811/SE.git&quot;,
+    &quot;accountId&quot;: &quot;7681de3e-d9f8-48b1-9992-05e969d4e2c7&quot;
+  }
+}</component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/twilio/sdk" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/google/auth" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/google/apiclient-services" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/google/apiclient" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/composer" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/facebook/graph-sdk" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/paragonie/constant_time_encoding" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/cupid-again/vendor/ralouphie/getallheaders" />
+    </include_path>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2tiAirxUrR2xI8N2NpGLltf8IND" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.sign_up.php.executor": "Run",
+    "Node.js.sign_up.js.executor": "Run",
+    "PHP Script.sign_in.php.executor": "Run",
+    "PHP Script.sign_up.php.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "ppp",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "22.14.0",
+    "javascript.nodejs.core.library.typings.version": "22.13.14",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/CN 14/II/Mạng máy tính/SE",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "D:/node js/node",
+    "nodejs_package_manager_path": "npm",
+    "npm.init.executor": "Run",
+    "npm.install.executor": "Run",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.nodejs",
+    "ts.external.directory.path": "D:\\IntelliJ IDEA 2024.3.4.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\CN 14\II\Cnpm\SE\cupid-again\html" />
+      <recent name="D:\CN 14\II\Cnpm\SE\cupid-again\css" />
+      <recent name="D:\CN 14\II\Cnpm\SE\cupid-again\php" />
+      <recent name="D:\CN 14\II\Cnpm\SE\cupid-again\img" />
+      <recent name="D:\CN 14\II\Công nghệ phần mềm\SE\cupid-again\php" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="SE" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="SE" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="73b6c1da-5c39-4ac6-8587-33f2cb5a467a" name="Changes" comment="" />
+      <created>1740824651956</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740824651956</updated>
+      <workItem from="1740824652995" duration="678000" />
+      <workItem from="1741405827877" duration="47000" />
+      <workItem from="1741655468660" duration="212000" />
+      <workItem from="1741744902176" duration="14000" />
+      <workItem from="1741744942537" duration="13000" />
+      <workItem from="1741812909621" duration="558000" />
+      <workItem from="1742887100871" duration="3322000" />
+      <workItem from="1742961354179" duration="18000" />
+      <workItem from="1742968565089" duration="2710000" />
+      <workItem from="1742974715776" duration="4598000" />
+      <workItem from="1743033573610" duration="3022000" />
+      <workItem from="1743167673926" duration="11914000" />
+      <workItem from="1743218580543" duration="4992000" />
+      <workItem from="1743229945136" duration="770000" />
+      <workItem from="1743230740158" duration="15973000" />
+      <workItem from="1743307631197" duration="1882000" />
+      <workItem from="1743309639791" duration="3985000" />
+      <workItem from="1743317209687" duration="34000" />
+      <workItem from="1743318566700" duration="12404000" />
+      <workItem from="1743347894012" duration="5677000" />
+      <workItem from="1743382467701" duration="2357000" />
+      <workItem from="1743535177831" duration="6103000" />
+      <workItem from="1743616772060" duration="1536000" />
+      <workItem from="1743639214905" duration="5803000" />
+      <workItem from="1743670678110" duration="2385000" />
+      <workItem from="1743716779543" duration="2568000" />
+      <workItem from="1743735019572" duration="6098000" />
+      <workItem from="1743758833938" duration="4838000" />
+      <workItem from="1743781974300" duration="12383000" />
+      <workItem from="1743885759890" duration="3943000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

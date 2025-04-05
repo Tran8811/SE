@@ -1,0 +1,156 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Inria Serif-Regular", Helvetica, serif;
+  background-color: #d1c9c24a;
+}
+
+.container {
+  width: 402px;
+  height: 650px;
+  background: #fdf1ea;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.puppy-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.logo-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.puppy-logo-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+}
+
+.logo-btn:hover .puppy-logo-image {
+  transform: scale(1.1);
+}
+
+.puppy-logo-text {
+  font-size: 20px;
+  font-family: "Inknut Antiqua", serif;
+  font-weight: bold;
+  color: #333;
+}
+
+.chat-box {
+  flex-grow: 1;
+  width: 100%;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.chat.outgoing {
+  align-self: flex-end;
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  padding: 10px 15px;
+  word-wrap: break-word;
+}
+
+.chat.incoming {
+  align-self: flex-start;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 10px 15px;
+  word-wrap: break-word;
+}
+
+.chat .details img.chat-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 5px;
+  border-radius: 8px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: #f3eae2;
+  width: 100%;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 2px solid #e1bba6;
+  border-radius: 18px;
+  font-size: 16px;
+  background: #fff;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+.chatbot-icon {
+  width: 100%;
+  height: auto;
+  padding-bottom: 7px;
+}
+
+.chat-input button,
+.image-upload-btn,
+#chatbotBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.chat-input button svg,
+.image-upload-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: #1e1e1e;
+}
+
+.chat-input button:hover,
+.image-upload-btn:hover,
+#chatbotBtn:hover {
+  transform: scale(1.1);
+}
+
+.send-icon {
+  stroke: #1e1e1e;
+}

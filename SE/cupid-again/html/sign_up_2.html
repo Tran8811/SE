@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CUPID</title>
+  <meta charset="utf-8"/>
+
+  <link href="/cupid-again/img/logo.png" rel="icon" sizes="32x32">
+  <link href="/cupid-again/img/logo.svg" rel="icon" type="image/svg+xml">
+  <link href="/cupid-again/img/logo.png" rel="apple-touch-icon" sizes="180x180">
+
+  <link href="/cupid-again/css/global.css" rel="stylesheet"/>
+  <style>
+    html, body {
+      height: 100vh;
+      width: 100vw; /* Đảm bảo full chiều rộng */
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Ngăn cuộn */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Thiết kế chính */
+    .content-section {
+      display: flex;
+      max-width: 402px;
+      width: 100%;
+      height: 100vh; /* Chiếm toàn bộ màn hình */
+      max-height: 100vh; /* Không vượt quá màn hình */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* Căn giữa dọc */
+      font-family: Newsreader, -apple-system, Roboto, Helvetica, sans-serif;
+      font-size: 22px;
+      background-color: rgba(255, 243, 236, 1);
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.5;
+      padding: 0;
+    }
+
+    /* Định dạng chung */
+    .content-area {
+      position: relative;
+      width: 402px;
+      height: 804px;
+      background-color: #fff3ec;
+    }
+
+    .content-area .overlap-group {
+      position: relative;
+      height: 838px;
+    }
+
+    .content-area .text-wrapper {
+      position: absolute;
+      width: 26px;
+      top: 66px;
+      left: 340px;
+      font-family: "Kings", serif;
+      font-weight: 400;
+      color: #1f1235;
+      font-size: 12px;
+      text-align: center;
+      text-decoration: line-through;
+    }
+
+    /* Ảnh */
+    .content-area .image {
+      position: absolute;
+      width: 402px;
+      height: 838px;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      opacity: 0.10;
+    }
+
+    /* Tiêu đề chính */
+    .content-area .div {
+      position: absolute;
+      width: 273px;
+      top: 240px;
+      left: 64px;
+      font-family: "Inria Serif", serif;
+      font-weight: 700;
+      font-style: italic;
+      color: #004643;
+      font-size: 48px;
+      text-align: center;
+    }
+
+    /* Văn bản mô tả */
+    .content-area .p {
+      position: absolute;
+      width: 279px;
+      top: 461px;
+      left: 59px;
+      font-family: "Inria Serif", serif;
+      font-weight: 300;
+      color: #004643;
+      font-size: 20px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Nút CONTINUE */
+    .continue-text {
+      position: absolute;
+      width: 100%;
+      top: 649px;
+      text-align: center;
+    }
+
+    .clickable-text {
+      font-family: "Inria Serif Bold", serif;
+      font-weight: 700;
+      color: #7d4c34;
+      font-size: 32px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+      display: inline-block;
+    }
+
+    .clickable-text:hover {
+      color: #002d2b;
+      transform: scale(1.2);
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="content-area">
+  <div class="overlap-group">
+    <div class="text-wrapper">CUPID</div>
+    <img alt="" class="image" src="../img/continue.PNG"/>
+    <p class="div">Your profile has been created.</p>
+    <p class="p">Let’s get to know you more!</p>
+    <p class="continue-text">
+      <a class="clickable-text" href="../html/create_profile.html">CONTINUE</a>
+    </p>
+  </div>
+</div>
+</body>
+
+</html>
+
