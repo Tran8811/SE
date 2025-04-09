@@ -1,42 +1,159 @@
 <!doctype html>
 <!--suppress ALL -->
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CUPID</title>
-  <!-- Open Graph for share on FB, Zalo...-->
+  <title>CUPID - Notifications</title>
+
+  <!-- Open Graph -->
   <meta name="description" content="Cupid - Chatting & dating app.">
   <meta property="og:title" content="Cupid - Chatting & dating app.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content=""> <!--URL cua web-->
-  <meta property="og:image" content="/img/logo.png">
+  <meta property="og:image" content="../img/logo.png">
   <meta property="og:image:alt" content="Logo">
-  <!-- Logo icon -->
+
+  <!-- Favicon -->
   <link rel="icon" href="../img/logo.png" sizes="32x32">
-  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../img/logo.png" sizes="180x180">
 
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/notification.css">
-  <link rel="stylesheet" href="../css/profile.css">
-
-  <link rel="manifest" href="../site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
 </head>
 <body>
-<div class="container centered">
+
+<!-- Modal hiển thị thông tin lời mời chat -->
+<div id="chatRequestModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Lời mời chat</h2>
+    <p id="chatSenderName"></p>
+    <button id="acceptChatBtn">Chấp nhận</button>
+  </div>
+</div>
+
+<div class="container">
   <div class="back-button">
     <a href="profile.html" class="back-button-logo"></a>
-    <p class="notifications-text">NOTIFICATIONS</p>
+    <p class="back-button-title">NOTIFICATIONS</p>
   </div>
-  <a href="chat.html" class="option-box">
-    <img src="../img/logo.png" alt="Avatar" class="chat-avatar">
-    <div class="option-title">Tên Người Chat</div>
-    <div class="option-status">Continue chatting... </div>
-  </a>
 
+  <div id="notification-list" class="notification-container">
+    <p class="loading-text">Đang tải thông báo...</p>
+  </div>
 </div>
+
+<!-- 🔥 JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    loadNotifications();
+  });
+
+  function loadNotifications() {
+    fetch("../php/get_notifications.php")
+      .then(res => res.json())
+      .then(data => {
+        console.log("Dữ liệu API:", data);
+        const notificationList = document.getElementById("notification-list");
+        notificationList.innerHTML = "";
+
+        if (data.status !== "success" || !Array.isArray(data.notifications) || data.notifications.length === 0) {
+          notificationList.innerHTML = `<p class="no-notification">Bạn chưa có thông báo nào.</p>`;
+          return;
+        }
+
+        data.notifications.forEach(notif => {
+          const notificationBox = document.createElement("div");
+          notificationBox.classList.add("notification-box");
+          notificationBox.dataset.type = notif.type;
+          notificationBox.dataset.senderId = notif.sender_id || "";
+          notificationBox.dataset.senderName = notif.sender_name || "Không xác định";
+
+          notificationBox.innerHTML = `
+          <img src="../img/avatar_default.png" alt="Avatar" class="notification-icon">
+          <div class="notification-content">
+            <div class="notification-title">${notif.content}</div>
+            <div class="notification-status">${formatTimeAgo(notif.created_at)}</div>
+          </div>
+        `;
+
+          notificationBox.addEventListener("click", function () {
+            if (notif.type === "chat_request") {
+              showChatRequest(notif.sender_id, notif.sender_name);
+            }
+          });
+
+          notificationList.appendChild(notificationBox);
+        });
+      })
+      .catch(err => console.error("Lỗi khi lấy thông báo:", err));
+  }
+
+  function showChatRequest(senderId, senderName) {
+    const modal = document.getElementById("chatRequestModal");
+    document.getElementById("chatSenderName").innerText = senderName;
+    document.getElementById("acceptChatBtn").dataset.senderId = senderId;
+    modal.style.display = "block";
+  }
+
+  // Ẩn modal khi nhấn đóng hoặc click ra ngoài
+  document.querySelector(".close").addEventListener("click", function () {
+    document.getElementById("chatRequestModal").style.display = "none";
+  });
+  window.onclick = function (event) {
+    const modal = document.getElementById("chatRequestModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  // ✅ Xử lý chấp nhận chat
+  document.getElementById("acceptChatBtn").addEventListener("click", function () {
+    const senderId = parseInt(this.dataset.senderId);
+    if (isNaN(senderId)) {
+      alert("Không tìm thấy ID người gửi.");
+      return;
+    }
+
+    fetch("../php/send_notifications.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "accept_chat", // <-- giữ đồng bộ với backend
+        sender_id: senderId
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "success") {
+          alert("Bạn đã chấp nhận lời mời chat!");
+          document.getElementById("chatRequestModal").style.display = "none";
+          loadNotifications(); // Cập nhật lại thông báo
+        } else {
+          alert("Lỗi: " + (data.message || "Không xác định"));
+        }
+      })
+      .catch(err => {
+        console.error("Lỗi khi chấp nhận chat:", err);
+        alert("Có lỗi xảy ra khi chấp nhận lời mời.");
+      });
+  });
+  function formatTimeAgo(dateString) {
+    const now = new Date();
+    const past = new Date(dateString);
+    const seconds = Math.floor((now - past) / 1000);
+
+    if (seconds < 60) return "Vừa xong";
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} phút trước`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} giờ trước`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days} ngày trước`;
+
+    return past.toLocaleDateString("vi-VN");
+  }
+</script>
 </body>
 </html>
+

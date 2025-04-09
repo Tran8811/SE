@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,13 +28,28 @@
 </div>
 
 <script>
+  let targetUserId = null; // Biến toàn cục để lưu ID của người nhận
+  let userId = null; // Biến toàn cục
+
   // Hàm mở popup
-  function openPopup(name, mbti, age, gender, avatar) {
+  /*
+  FIXXX
+   */
+
+  function openPopup(id,name, mbti, age, gender, avatar) {
+    targetUserId = id; // Lưu ID của người nhận
     document.getElementById("popup-name").innerText = name;
     document.getElementById("popup-mbti").innerText = `MBTI: ${mbti}`;
     document.getElementById("popup-age").innerText = `Tuổi: ${age}`;
     document.getElementById("popup-gender").innerText = `Giới tính: ${gender}`;
     document.getElementById("popup-avatar").src = "../img/" + avatar;
+
+    if (avatar) {
+      document.getElementById("popup-avatar").src = avatar;
+    } else {
+      console.warn("Lỗi: Avatar bị thiếu!");
+      document.getElementById("popup-avatar").src = "../img/default-avatar.png"; // Avatar mặc định nếu thiếu
+    }
 
     document.getElementById("popup").style.display = "flex";
     document.getElementById("popup").classList.add("show");
@@ -48,11 +63,45 @@
     } else {
       chatBtn.innerText = "Bắt đầu chat";
       chatBtn.disabled = false;
-      chatBtn.onclick = function () {
-        sessionStorage.setItem("currentChat", name);
-        window.location.href = "chatting.html";
-      };
+      chatBtn.onclick = () => sendChatRequest(targetUserId);
     }
+
+  }
+
+  // Hàm gửi lời mời chat
+  function sendChatRequest(receiverId) {
+    if (!receiverId) {
+      console.error("Lỗi: Không có ID người nhận!");
+      return;
+    }
+
+    if (receiverId === userId) {
+      alert("Lỗi: Không thể gửi lời mời chat cho chính mình!");
+      return;
+    }
+
+    console.log("DEBUG - Gửi chat request từ userId:", userId, "đến receiverId:", receiverId);
+
+    fetch("../php/send_notifications.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "chat_request",
+        sender_id: userId,
+        receiver_id: receiverId
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("DEBUG - Phản hồi từ server:", data);
+        if (data.status === "success") {
+          document.getElementById("chat-btn").innerText = "Đã gửi lời mời";
+          document.getElementById("chat-btn").disabled = true;
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(err => console.error("Lỗi gửi lời mời:", err));
   }
 
   function closePopup() {
@@ -63,38 +112,39 @@
   }
 
   // Lấy dữ liệu người dùng từ API
-  function loadUsers(minAge = null, maxAge = null, location = null) {
-    const userId = 1; // ID của người dùng hiện tại (có thể lấy từ session hoặc cookie)
-    let url = `/cupid-again/php/match_api.php?id=${userId}`;
-    // Thêm một chỉ báo "loading"
-    const userListContainer = document.getElementById("user-list");
-    userListContainer.innerHTML = "Đang tải...";  // Hiển thị thông báo đang tải
+  function loadUsers() {
+    fetch("/cupid-again/php/match_api.php")
+      .then(res => res.json())
+      .then(filter => {
+        if (filter.error) {
+          console.error("Lỗi filter:", filter.error);
+          return;
+        }
+        /*
+        FIXXX Tí xóa
+         */
+        //const id = 1;
+        // Build URL đúng chuẩn như API yêu cầu
+        const queryParams = new URLSearchParams();
 
-    // Nếu có lọc tuổi, thêm vào URL
-    if (minAge !== null || maxAge !== null || location !== null) {
-      if (minAge !== null) url += `&minAge=${minAge}`;
-      if (maxAge !== null) url += `&maxAge=${maxAge}`; // Chỉ thêm nếu maxAge không null
-      if(location!=null) {
-        //url += `&location=${encodeURIComponent(location)}`; // Chuyển "Hà Nội" thành "Ha%20Noi";
-        url += `&location=${location}`;
-      }
-      console.log(`Debug: Gọi API với bộ lọc tuổi - ${url}`);
-    } else {
-      console.log(`Debug: Gọi API không có bộ lọc tuổi - ${url}`);
-    }
-
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Authorization": "Basic " + btoa("admin:123456") , // Mã hóa user:password
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
+        queryParams.append("id", filter.userId);
+        userId = filter.userId; // Gán userId vào biến toàn cục [cho CHAT]
+        ///queryParams.append("id", id);
+        if (filter.preferredMinAge) queryParams.append("minAge", filter.preferredMinAge);
+        if (filter.preferredMaxAge) queryParams.append("maxAge", filter.preferredMaxAge);
+        if (filter.preferredLocation) queryParams.append("location", filter.preferredLocation);
+        console.log("check");
+        const apiUrl = `http://localhost:8081/users/findMatches?${queryParams.toString()}`;
+        ///const apiUrl = `http://26.64.245.68:8081/users/findMatches?${queryParams.toString()}`;
+        console.log("DEBUG:" + apiUrl);
+        return fetch(apiUrl);
+      })
+      .then(res => res.json())
       .then(data => {
-        userListContainer.innerHTML = '';  // Xóa thông báo "loading"
+        const userListContainer = document.getElementById("user-list");
+        userListContainer.innerHTML = '';
 
-        if (data.length === 0) {
+        if (!data || data.length === 0) {
           userListContainer.innerHTML = '<p>Không tìm thấy người dùng phù hợp.</p>';
           return;
         }
@@ -102,54 +152,27 @@
         data.forEach(user => {
           const userCard = document.createElement('div');
           userCard.classList.add('user-card');
-          userCard.style.backgroundColor = user.backgroundColor || '#d3d3d3'; // Màu nền của card có thể thay đổi tùy thuộc vào dữ liệu
-          userCard.setAttribute('onclick', `openPopup('${user.username}', '${user.mbti}', ${user.age}, '${user.gender}', '${user.avatar}')`);
+          userCard.style.backgroundColor = user.backgroundColor || '#d3d3d3';
+          userCard.setAttribute('onclick', `openPopup(${user.id}, '${user.username}', '${user.mbti}', ${user.age}, '${user.gender}', '${user.avatar || '../img/default-avatar.png'}')`);
 
           userCard.innerHTML = `
-            <img src="../img/${user.avatar}" alt="avatar" class="user-avatar">
-            <div class="user-info">
-              <h2>${user.username}</h2>
-              <p>MBTI: ${user.mbti}</p>
-              <p>Tuổi: ${user.age}</p>
-            </div>
-          `;
+          <img src="../img/${user.avatar || 'default-avatar.png'}" alt="avatar" class="user-avatar">
+          <div class="user-info">
+            <h2>${user.username}</h2>
+            <p>MBTI: ${user.mbti}</p>
+          </div>
+        `;
           userListContainer.appendChild(userCard);
         });
       })
-      .catch(error => console.error('Error fetching user data:', error));
-  }
-
-  // Kiểm tra sessionStorage và cập nhật danh sách
-  let lastMinAge = null;
-  let lastMaxAge = null;
-
-  // Kiểm tra và cập nhật danh sách dựa trên thông tin user hiện tại
-  function checkFilterUpdates() {
-    const id = 1;
-    fetch(`http://localhost:8081/users/${id}`, { // Gọi endpoint /users/1 để lấy thông tin user hiện tại
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(response => {
-        if (!response.ok) throw new Error("Error fetching user: " + response.status);
-        return response.json();
-      })
-      .then(currentUser => {
-        console.log("User info:", currentUser);
-        const minAge = currentUser.preferredMinAge || null;
-        const maxAge = currentUser.preferredMaxAge || null;
-        const location = currentUser.preferredLocation || null;
-        console.log(`Debug: Bộ lọc từ DB - minAge=${minAge}, maxAge=${maxAge}, location=${location}`);
-        loadUsers(minAge, maxAge, location);
-      })
-      .catch(error => {
-        console.error("Error fetching filter:", error);
-        loadUsers(); // Tải mặc định nếu lỗi
+      .catch(err => {
+        console.error("Lỗi khi gọi findMatches:", err);
       });
   }
-  // Gọi hàm loadUsers khi trang được tải
+
+
   window.onload = function() {
-    checkFilterUpdates();
+    loadUsers();
   }
 </script>
 </body>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'get_connection.php'; // Kết nối CSDL
+
 // Kiểm tra biến $conn có tồn tại không
 if (!isset($conn)) {
   die(json_encode(["status" => "error", "message" => "Lỗi kết nối database!"]));
@@ -11,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST["password"];
 
   // Kiểm tra username trong database
-  $sql = "SELECT id, password FROM users WHERE username = ?";
+  $sql = "SELECT id, unique_id, password FROM users WHERE username = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $username);
   $stmt->execute();
@@ -21,11 +22,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $result->fetch_assoc();
     $hashed_password = $user["password"];
 
-    // **So sánh mật khẩu đã nhập với mật khẩu đã mã hóa**
+    // So sánh mật khẩu đã nhập với mật khẩu đã mã hóa
     if (password_verify($password, $hashed_password)) {
       $_SESSION["user_id"] = $user["id"];
+      $_SESSION["unique_id"] = $user["unique_id"];
       $_SESSION["username"] = $username;
-      echo json_encode(["status" => "success", "message" => "Đăng nhập thành công!"]);
+
+      echo json_encode([
+        "status" => "success",
+        "message" => "Đăng nhập thành công!",
+        "user_id" => $user["id"],
+        "unique_id" => $user["unique_id"]
+      ]);
     } else {
       echo json_encode(["status" => "error", "message" => "Mật khẩu không đúng!"]);
     }

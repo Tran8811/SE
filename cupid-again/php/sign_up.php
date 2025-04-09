@@ -1,50 +1,44 @@
 <?php
-/** @noinspection ALL */
-header("Content-Type: application/json"); // Đảm bảo response là JSON
+header("Content-Type: application/json");
 session_start();
+require_once "get_connection.php";
 
-// Import file config.php để dùng biến $conn
-require_once 'get_connection.php';
-
-// Kiểm tra biến $conn có tồn tại không
 if (!isset($conn)) {
   die(json_encode(["status" => "error", "message" => "Lỗi kết nối database!"]));
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = trim($_POST["username"]);
-  $password = trim($_POST["password"]);
+  $username = isset($_POST["username"]) ? trim($_POST["username"]) : "";
+  $email = isset($_POST["email"]) ? trim($_POST["email"]) : "";
+  $password = isset($_POST["password"]) ? trim($_POST["password"]) : "";
 
-  if (empty($username) || empty($password)) {
+  if (empty($username) || empty($email) || empty($password)) {
     echo json_encode(["status" => "error", "message" => "Vui lòng nhập đầy đủ thông tin!"]);
     exit();
   }
 
-  // Kiểm tra username đã tồn tại chưa
-  $checkQuery = "SELECT id FROM users WHERE username = ?";
+  $checkQuery = "SELECT id FROM users WHERE username = ? OR email = ?";
   if ($stmt = $conn->prepare($checkQuery)) {
-    $stmt->bind_param("s", $username);
+    $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $stmt->store_result();
-
     if ($stmt->num_rows > 0) {
-      echo json_encode(["status" => "error", "message" => "Username đã tồn tại!"]);
+      echo json_encode(["status" => "error", "message" => "Username hoặc Email đã tồn tại!"]);
       exit();
     }
     $stmt->close();
   }
 
-  // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
-  $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+  $unique_id = rand(1000000, 99999999);
+  $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-  // Lưu vào database
-  $insertQuery = "INSERT INTO users (users.username, users.password) VALUES (?, ?)";
+  $insertQuery = "INSERT INTO users (unique_id, username, email, password, mbti) VALUES (?, ?, ?, ?, NULL)";
   if ($stmt = $conn->prepare($insertQuery)) {
-    $stmt->bind_param("ss", $username, $hashedPassword);
+    $stmt->bind_param("ssss", $unique_id, $username, $email, $hashed_password);
     if ($stmt->execute()) {
       $_SESSION["username"] = $username;
       $_SESSION["user_id"] = $stmt->insert_id;
-      session_write_close();
+      $_SESSION["unique_id"] = $unique_id;
       echo json_encode(["status" => "success", "message" => "Đăng ký thành công!"]);
     } else {
       echo json_encode(["status" => "error", "message" => "Lỗi đăng ký, thử lại!"]);
@@ -56,4 +50,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
   echo json_encode(["status" => "error", "message" => "Yêu cầu không hợp lệ!"]);
 }
-
+?>

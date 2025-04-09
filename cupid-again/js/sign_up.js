@@ -37,99 +37,50 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
 
     let username = document.getElementById("username").value.trim();
+    let email = document.getElementById("email").value.trim();
     let password = document.getElementById("password").value.trim();
     let errorMessage = document.getElementById("error-message");
     let termsCheckbox = document.getElementById("terms-checkbox");
 
-    if (username === "" || password === "") {
+    if (username === "" || email === "" || password === "") {
       errorMessage.textContent = "Vui lòng nhập đầy đủ thông tin!";
       errorMessage.style.display = "block";
-    } else if (!termsCheckbox.checked) {
+      return;
+    }
+
+    if (!termsCheckbox.checked) {
       errorMessage.textContent = "Bạn phải đồng ý với điều khoản trước khi tiếp tục!";
       errorMessage.style.display = "block";
-    } else {
-      errorMessage.style.display = "none";
-
-
-      console.log("Sending request...");
-
-      // Gửi dữ liệu đến PHP
-      fetch("../php/sign_up.php", {
-        method: "POST",
-        headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === "success") {
-            alert(data.message);
-            window.location.href = "sign_up_2.html";
-          } else {
-            errorMessage.textContent = data.message;
-            errorMessage.style.display = "block";
-          }
-        })
-        .catch(error => {
-          console.error("Fetch error:", error);
-
-          function showError(message) {
-            let errorMessage = document.getElementById("error-message");
-            if (errorMessage) {
-              errorMessage.textContent = message;
-              errorMessage.style.display = "block";
-            } else {
-              alert(message);
-            }
-          }
-
-
-          showError("Connection error!");
-        });
-
-
-      // Xử lý sự kiện đăng nhập bằng Google
-      const googleBtn = document.querySelector(".google");
-// Đăng nhập bằng Google
-      const CLIENT_ID = "986451075642-kd1t4q7ke1fhkac5fmielv3vk2mv3naq.apps.googleusercontent.com"; // Thay bằng Client ID từ Google Cloud
-      google.accounts.id.initialize({
-        client_id: CLIENT_ID,
-        callback: handleGoogleSignIn
-      });
-
-      google.accounts.id.renderButton(
-        document.getElementById("google-login-button"),
-        {theme: "outline", size: "large"}
-      );
-
-      function handleGoogleSignIn(response) {
-        const credential = response.credential;
-
-        fetch("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + credential)
-          .then(res => res.json())
-          .then(user => {
-            fetch("../php/google_login.php", {
-              method: "POST",
-              headers: {"Content-Type": "application/json"},
-              body: JSON.stringify({
-                email: user.email,
-                name: user.name,
-                picture: user.picture
-              })
-            })
-              .then(response => response.json())
-              .then(data => {
-                if (data.status === "success") {
-                  alert("Đăng nhập thành công!");
-                  window.location.href = "../html/sign_up_2.html";
-                } else {
-                  alert("Lỗi đăng nhập!");
-                }
-              })
-              .catch(error => console.error("Lỗi:", error));
-          })
-          .catch(error => console.error("Lỗi khi lấy thông tin user:", error));
-      }
+      return;
     }
+
+    errorMessage.style.display = "none";
+
+    fetch("../php/sign_up.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Lỗi mạng hoặc server không phản hồi đúng.");
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === "success") {
+          alert(data.message);
+          window.location.href = "sign_up_2.html";
+        } else {
+          errorMessage.textContent = data.message;
+          errorMessage.style.display = "block";
+        }
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+        errorMessage.textContent = "Có lỗi xảy ra, vui lòng thử lại!";
+        errorMessage.style.display = "block";
+      });
   });
 });
 

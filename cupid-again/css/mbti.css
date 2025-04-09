@@ -1,13 +1,9 @@
 /* Giữ "CUPID" ở góc phải trên */
-.header-text {
+.logo-text {
+  height: 16px;
   position: absolute;
   top: 20px;
   right: 30px;
-  color: rgb(31, 18, 53);
-  font-size: 12px;
-  font-family: "Kings", sans-serif;
-  font-weight: 400;
-  text-decoration: line-through;
 }
 
 /* Căn giữa câu hỏi */

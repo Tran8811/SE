@@ -32,6 +32,19 @@
   padding-top: 12px;
 }
 
+.notification-icon {
+  width: 30px; /* Điều chỉnh kích thước */
+  height: 30px;
+  justify-content: center;
+  background: url("/cupid-again/img/noti_icon.png") no-repeat center center; /* Đặt ảnh làm background */
+  background-size: contain; /* Đảm bảo ảnh vừa khung */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
 .option-box {
   width: 90%;
   display: flex;
@@ -99,8 +112,9 @@
   font-size: 16px;
   font-weight: bold;
   flex-grow: 1;
-  text-align: left;
-  margin-left: 10px;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 5px;
 }
 
 .option-status {
