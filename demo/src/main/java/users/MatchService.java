@@ -38,22 +38,22 @@ public class MatchService {
                 + ", preferredLocation=" + location);
 
         Map<String, List<String>> compatibilityChart = new HashMap<>();
-        compatibilityChart.put("INTJ", List.of("ENFP", "ENTJ", "INFJ"));
-        compatibilityChart.put("INTP", List.of("ENTJ", "ENTP", "INFP"));
-        compatibilityChart.put("ENTJ", List.of("INTP", "INTJ", "ENFP"));
-        compatibilityChart.put("ENTP", List.of("INFJ", "INFP", "ENTJ"));
-        compatibilityChart.put("INFJ", List.of("ENTP", "ENFP", "INTJ"));
-        compatibilityChart.put("INFP", List.of("ENFP", "INFJ", "ENTP"));
-        compatibilityChart.put("ENFJ", List.of("INFP", "INFJ", "ENTP"));
-        compatibilityChart.put("ENFP", List.of("INFJ", "INTJ", "INFP"));
-        compatibilityChart.put("ISTJ", List.of("ESTP", "ISFJ", "ENTJ"));
-        compatibilityChart.put("ISFJ", List.of("ESFJ", "ISTJ", "ENFP"));
-        compatibilityChart.put("ESTJ", List.of("ISTJ", "ESTP", "ESFJ"));
-        compatibilityChart.put("ESFJ", List.of("ISFJ", "ENFJ", "ESTP"));
-        compatibilityChart.put("ISTP", List.of("ESTP", "INTP", "ENTJ"));
-        compatibilityChart.put("ISFP", List.of("ESFP", "INFJ", "ENFP"));
-        compatibilityChart.put("ESTP", List.of("ISTP", "ESFP", "ENTJ"));
-        compatibilityChart.put("ESFP", List.of("ISFP", "ESTP", "ENFP"));
+        compatibilityChart.put("INTJ", List.of("ENFP", "ENTJ", "INFJ", "ENTJ", "ENFP")); // thêm ENFP, ENTJ ngược lại
+        compatibilityChart.put("INTP", List.of("ENTJ", "ENTP", "INFP", "ISTP")); // thêm ISTP
+        compatibilityChart.put("ENTJ", List.of("INTP", "INTJ", "ENFP", "ISTJ", "ISTP", "ESTP")); // thêm ISTJ, ISTP, ESTP
+        compatibilityChart.put("ENTP", List.of("INFJ", "INFP", "ENTJ")); // ok
+        compatibilityChart.put("INFJ", List.of("ENTP", "ENFP", "INTJ", "ISFP")); // thêm ISFP
+        compatibilityChart.put("INFP", List.of("ENFP", "INFJ", "ENTP", "INTP", "ENFJ")); // thêm INTP, ENFJ
+        compatibilityChart.put("ENFJ", List.of("INFP", "INFJ", "ENTP", "ESFJ")); // thêm ESFJ
+        compatibilityChart.put("ENFP", List.of("INFJ", "INTJ", "INFP", "INFP", "ISFJ", "ESFP")); // thêm INFP, ISFJ, ESFP
+        compatibilityChart.put("ISTJ", List.of("ESTP", "ISFJ", "ENTJ", "ESTJ")); // thêm ESTJ
+        compatibilityChart.put("ISFJ", List.of("ESFJ", "ISTJ", "ENFP")); // ok
+        compatibilityChart.put("ESTJ", List.of("ISTJ", "ESTP", "ESFJ")); // ok
+        compatibilityChart.put("ESFJ", List.of("ISFJ", "ENFJ", "ESTP")); // ok
+        compatibilityChart.put("ISTP", List.of("ESTP", "INTP", "ENTJ")); // ok
+        compatibilityChart.put("ISFP", List.of("ESFP", "INFJ", "ENFP")); // ok
+        compatibilityChart.put("ESTP", List.of("ISTP", "ESFP", "ENTJ", "ISTJ", "ESTJ", "ESFJ")); // thêm ISTJ, ESTJ, ESFJ
+        compatibilityChart.put("ESFP", List.of("ISFP", "ESTP", "ENFP")); // ok
 
         // Lọc theo MBTI
         List<String> compatibleMbtiList = compatibilityChart.getOrDefault(user.getMbti(), List.of());
