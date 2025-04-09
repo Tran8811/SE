@@ -20,18 +20,16 @@ public class User {
 
     private int preferredMinAge;
     private int preferredMaxAge;
-    private double latitude;  // Vĩ độ (latitude)
-    private double longitude; // Kinh độ (longitude)
+    private String preferredLocation;
 
     public User(){}
 
-    public User(long l, String name, String mbti, int age, double latitude, double longitude) {
+    public User(long l, String name, String mbti, int age) {
         this.id = l;
         this.username = name;
         this.mbti = mbti;
         this.age = age;
-        this.latitude = latitude;
-        this.longitude = longitude;
+
     }
 
 
@@ -44,12 +42,12 @@ public class User {
         this.location = location;
     }
 //test api
-    public User(long l, String name, String mbti, int i) {
-        this.id = l;
-        this.username = name;
-        this.mbti = mbti;
-        this.age = i;
-    }
+//    public User(long l, String name, String mbti, int i) {
+//        this.id = l;
+//        this.username = name;
+//        this.mbti = mbti;
+//        this.age = i;
+//    }
 
     public String getLocation() {
         return location;
@@ -115,21 +113,6 @@ public class User {
         this.interests = interests;
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
 
     public int getPreferredMinAge() {
         return preferredMinAge;
@@ -146,5 +129,14 @@ public class User {
     public void setPreferredMaxAge(int preferredMaxAge) {
         this.preferredMaxAge = preferredMaxAge;
     }
+
+    public String getPreferredLocation() {
+        return preferredLocation;
+    }
+
+    public void setPreferredLocation(String preferredLocation) {
+        this.preferredLocation = preferredLocation;
+    }
+
     // Getters and Setters
 }
